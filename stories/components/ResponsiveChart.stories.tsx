@@ -75,7 +75,7 @@ export function SiblingVariable() {
         {({ width, height }) => <TestChart width={width} height={height} />}
       </ResponsiveChart>
       <VariableDiv>
-        <div style={{ backgroundColor: 'red', height: '100%', text: 'white' }}>
+        <div style={{ backgroundColor: 'red', height: '100%', color: 'white' }}>
           Hi!
         </div>
       </VariableDiv>
