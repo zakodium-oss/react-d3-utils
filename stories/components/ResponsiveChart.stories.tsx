@@ -1,10 +1,11 @@
 import { Meta } from '@storybook/react';
 import { ReactNode, useEffect, useState } from 'react';
 
-import { ResponsiveChart } from '../../src';
+import { ResponsiveChart, ResponsiveChartProps } from '../../src';
 
 export default {
   title: 'components/ResponsiveChart',
+  component: ResponsiveChart,
 } as Meta;
 
 function TestChart(props: { width: number; height: number }) {
@@ -40,6 +41,48 @@ function VariableDiv(props: { children: ReactNode }) {
     </div>
   );
 }
+
+export function Control({
+  parentWidth,
+  parentHeight,
+  siblingWidth,
+  ...args
+}: ResponsiveChartProps & {
+  parentWidth: number;
+  parentHeight: number;
+  siblingWidth: number;
+}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        height: parentHeight,
+        width: parentWidth,
+      }}
+    >
+      <ResponsiveChart {...args}>
+        {({ width, height }) => <TestChart width={width} height={height} />}
+      </ResponsiveChart>
+      <div
+        style={{
+          backgroundColor: 'red',
+          height: '100%',
+          color: 'white',
+          width: siblingWidth,
+        }}
+      >
+        Hi!
+      </div>
+    </div>
+  );
+}
+
+Control.args = {
+  parentWidth: 600,
+  parentHeight: 400,
+  siblingWidth: 200,
+};
 
 export function ParentFixed() {
   return (
