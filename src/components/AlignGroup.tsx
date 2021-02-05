@@ -42,13 +42,13 @@ export function AlignGroup(props: AlignGroupProps) {
     children,
   } = props;
 
-  const groupRef = useRef<SVGGElement | null>(null);
+  const groupRef = useRef<SVGGElement>(null);
   const [state, setState] = useState({ height: 0, width: 0, x: 0, y: 0 });
   useLayoutEffect(() => {
     const { height = 0, width = 0, x = 0, y = 0 } =
       groupRef?.current?.getBBox() || {};
     setState({ height, width, x, y });
-  }, [groupRef]);
+  }, []);
 
   const xPosition = useMemo(
     () => calculatePosition(x - state.x, horizontalAlign, state.width),
