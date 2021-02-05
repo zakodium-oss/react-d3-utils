@@ -4,27 +4,14 @@ import { AlignGroup, AlignGroupProps } from '../../src';
 
 const DEBUG_COLOR = 'yellow';
 
-const control = { type: 'select', options: ['start', 'middle', 'end'] };
 export default {
-  title: 'Docs/Shapes',
+  title: 'Components/AlignGroup',
   component: AlignGroup,
-  argTypes: {
-    x: {
-      defaultValue: 100,
-      control: 'number',
-    },
-    y: {
-      defaultValue: 100,
-      control: 'number',
-    },
-    verticalAlign: {
-      defaultValue: 'start',
-      control,
-    },
-    horizontalAlign: {
-      defaultValue: 'start',
-      control,
-    },
+  args: {
+    x: 100,
+    y: 100,
+    verticalAlign: 'start',
+    horizontalAlign: 'start',
   },
 } as Meta;
 
