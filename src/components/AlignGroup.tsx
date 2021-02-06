@@ -1,10 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useRef,
-  useMemo,
-  useState,
-  ReactNode,
-} from 'react';
+import { useLayoutEffect, useRef, useMemo, useState, ReactNode } from 'react';
 
 type Align = 'start' | 'middle' | 'end';
 
@@ -48,7 +42,7 @@ export function AlignGroup(props: AlignGroupProps) {
     const { height = 0, width = 0, x = 0, y = 0 } =
       groupRef?.current?.getBBox() || {};
     setState({ height, width, x, y });
-  }, []);
+  }, [children]);
 
   const xPosition = useMemo(
     () => calculatePosition(x - state.x, horizontalAlign, state.width),
