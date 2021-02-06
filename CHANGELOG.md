@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://www.github.com/zakodium/react-d3-utils/compare/v0.1.1...v0.1.2) (2021-02-06)
+
+
+### Bug Fixes
+
+* reposition group when children change ([0e2a021](https://www.github.com/zakodium/react-d3-utils/commit/0e2a02185402b6137542381528cf972e1f90d924))
+
 ### [0.1.1](https://www.github.com/zakodium/react-d3-utils/compare/v0.1.0...v0.1.1) (2021-02-06)
 
 
