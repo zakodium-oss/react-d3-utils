@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.1](https://www.github.com/zakodium/react-d3-utils/compare/v0.1.0...v0.1.1) (2021-02-06)
+
+
+### Bug Fixes
+
+* publish correct directories ([a46b349](https://www.github.com/zakodium/react-d3-utils/commit/a46b349787ed1ba63fde72cbc495c89498607826))
+
 ## 0.1.0 (2021-02-05)
 
 
