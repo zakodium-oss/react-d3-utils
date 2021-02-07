@@ -18,6 +18,7 @@ export function useBBoxObserver<ElementType extends SVGGraphicsElement>() {
       cleanupPrevious.current();
     }
     if (element !== null) {
+      // @ts-expect-error: ResizeObserver will only in `lib.dom.d.ts` in TypeScript 4.2
       const observer = new ResizeObserver(([entry]) => {
         const bbox = (entry.target as ElementType).getBBox();
         const previous = previousSize.current;
