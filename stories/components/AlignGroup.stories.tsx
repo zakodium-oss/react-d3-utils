@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import { useEffect, useState } from 'react';
 
-import { AlignGroup, AlignGroupProps } from '../../src';
+import { AlignGroup, AlignGroupProps, useBBoxObserver } from '../../src';
 
 const DEBUG_COLOR = 'yellow';
 
@@ -35,7 +35,7 @@ Control.args = {
   horizontalAlign: 'start',
 };
 
-export function VariableSize() {
+function VariableText() {
   const [text, setText] = useState(lorem);
   useEffect(() => {
     const interval = setInterval(
@@ -44,6 +44,11 @@ export function VariableSize() {
     );
     return () => clearInterval(interval);
   }, []);
+  return <text fill="white">{text}</text>;
+}
+
+export function VariableSize() {
+  const { ref, ...size } = useBBoxObserver();
   return (
     <div>
       <svg style={{ overflow: 'visible' }} width={200} height={200}>
@@ -51,8 +56,11 @@ export function VariableSize() {
         <line x1={0} x2={200} y1={100} y2={100} stroke={DEBUG_COLOR} />
 
         <AlignGroup x={100} y={100} horizontalAlign="end" verticalAlign="end">
-          <rect fill="red" width={10} height={10} />
-          <text>{text}</text>
+          <rect fill="green" {...size} />
+          <g ref={ref}>
+            <rect fill="red" width={10} height={10} />
+            <VariableText />
+          </g>
         </AlignGroup>
       </svg>
     </div>

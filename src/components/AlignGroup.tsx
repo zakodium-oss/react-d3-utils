@@ -1,6 +1,8 @@
-import { useLayoutEffect, useRef, useMemo, useState, ReactNode } from 'react';
+import { useMemo, ReactNode } from 'react';
 
-type Align = 'start' | 'middle' | 'end';
+import { useBBoxObserver } from '../hooks/useBBoxObserver';
+
+export type Align = 'start' | 'middle' | 'end';
 
 export interface AlignGroupProps {
   x?: number;
@@ -36,25 +38,21 @@ export function AlignGroup(props: AlignGroupProps) {
     children,
   } = props;
 
-  const groupRef = useRef<SVGGElement>(null);
-  const [state, setState] = useState({ height: 0, width: 0, x: 0, y: 0 });
-  useLayoutEffect(() => {
-    const { height = 0, width = 0, x = 0, y = 0 } =
-      groupRef?.current?.getBBox() || {};
-    setState({ height, width, x, y });
-  }, [children]);
+  const observed = useBBoxObserver();
 
   const xPosition = useMemo(
-    () => calculatePosition(x - state.x, horizontalAlign, state.width),
-    [x, horizontalAlign, state.width, state.x],
+    () =>
+      calculatePosition(x - observed.x, horizontalAlign, observed.width || 0),
+    [x, horizontalAlign, observed.x, observed.width],
   );
   const yPosition = useMemo(
-    () => calculatePosition(y - state.y, verticalAlign, state.height),
-    [y, verticalAlign, state.height, state.y],
+    () =>
+      calculatePosition(y - observed.y, verticalAlign, observed.height || 0),
+    [y, verticalAlign, observed.y, observed.height],
   );
 
   return (
-    <g ref={groupRef} transform={`translate(${xPosition}, ${yPosition})`}>
+    <g ref={observed.ref} transform={`translate(${xPosition}, ${yPosition})`}>
       {children}
     </g>
   );
