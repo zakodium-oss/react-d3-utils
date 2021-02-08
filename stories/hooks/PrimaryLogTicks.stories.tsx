@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/react';
-import { scaleLinear } from 'd3-scale';
+import { scaleLog } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { usePrimaryLinearTicks } from '../../src';
+import { usePrimaryLogTicks } from '../../src';
 
 interface Props {
   minWidth: number;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default {
-  title: 'Hooks/usePrimaryLinearTicks',
+  title: 'Hooks/usePrimaryLogTicks',
   args: {
     minWidth: 50,
     maxWidth: 500,
@@ -30,10 +30,8 @@ export function HorizontalAxis({
   const [width, setWidth] = useState(minWidth);
   const [isDown, setIsDown] = useState(true);
 
-  const scale = scaleLinear().range([0, width]).domain([0, 100]);
-  const ticks = usePrimaryLinearTicks(scale, 'horizontal', {
-    scientificNotation,
-  });
+  const scale = scaleLog().range([0, width]).domain([10, 100000]);
+  const ticks = usePrimaryLogTicks(scale, 'horizontal', { scientificNotation });
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -54,8 +52,9 @@ export function HorizontalAxis({
       <svg style={{ overflow: 'visible' }} width={maxWidth + 20} height={60}>
         <g transform="translate(10, 10)">
           <line x2={width} y1={15} y2={15} stroke="black" />
-          {ticks.map(({ label, position }) => (
-            <g key={label}>
+          {ticks.map(({ label, position }, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <g key={index + label + position}>
               <line
                 x1={position}
                 x2={position}
