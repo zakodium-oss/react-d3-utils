@@ -34,7 +34,7 @@ export function usePrimaryLinearTicks<
 
   const {
     scientificNotation = false,
-    minSpace = 80,
+    minSpace = 16,
     fontSize = 16,
     tickFormat = scientificNotation
       ? (x) => x.toExponential(2)
