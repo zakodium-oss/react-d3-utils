@@ -2,7 +2,7 @@ import type { ScaleContinuousNumeric } from 'd3-scale';
 
 type Directions = 'horizontal' | 'vertical';
 
-export interface PrimaryLogTicks {
+export interface PrimaryLinearTicks {
   label: string;
   position: number;
 }
@@ -18,25 +18,17 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   ticks: number[],
   scale: Scale,
   format: (d: number) => string,
-): PrimaryLogTicks[] {
-  const mapper = (val: number, index: number) => {
-    const position = scale(val);
-    const label =
-      index + 1 < ticks.length && scale(ticks[index + 1]) - position < 16
-        ? ''
-        : format(val);
-    return { label, position };
-  };
-  return ticks.map(mapper);
+): PrimaryLinearTicks[] {
+  return ticks.map((val) => ({ label: format(val), position: scale(val) }));
 }
 
-export function usePrimaryLogTicks<
+export function useLinearPrimaryTicks<
   Scale extends ScaleContinuousNumeric<number, number>
 >(
   scale: Scale,
   direction: Directions,
   options: Options = {},
-): PrimaryLogTicks[] {
+): PrimaryLinearTicks[] {
   const range = scale.range();
   if (!range) throw new Error('Range needs to be specified');
 
@@ -53,22 +45,15 @@ export function usePrimaryLogTicks<
 
   // Calculates the first paint density
   const defaultTicks = scale.ticks();
-  let defaultLenght =
-    direction === 'horizontal'
-      ? (fontSize / 2) * tickFormat(defaultTicks[0]).length
-      : fontSize;
+  const defaultLabels = defaultTicks.map(tickFormat);
 
-  for (let i = 1; i < defaultTicks.length; i++) {
-    const wordLength =
-      direction === 'horizontal'
-        ? (fontSize / 2) * tickFormat(defaultTicks[i]).length
-        : fontSize;
-    const minDistance = Math.max(
-      minSpace,
-      scale(defaultTicks[i]) - scale(defaultTicks[i - 1]) - wordLength,
-    );
-    defaultLenght += wordLength + minDistance;
-  }
+  const defaultLenght =
+    direction === 'horizontal'
+      ? defaultLabels.reduce(
+          (acc, curr) => acc + minSpace + (fontSize / 2) * curr.length,
+          -1 * minSpace,
+        )
+      : defaultLabels.length * (fontSize + minSpace) - minSpace;
 
   // Checks if the space is clear enought
   const defaultNumTicks = defaultTicks.length;
