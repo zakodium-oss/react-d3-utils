@@ -141,4 +141,3 @@ export function AutomaticVerticalAxis({
   );
 }
 AutomaticVerticalAxis.storyName = 'Automatic vertical axis';
-
