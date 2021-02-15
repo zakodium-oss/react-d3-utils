@@ -25,7 +25,7 @@ export default {
   },
 } as Meta;
 
-export function HorizontalAxis({
+export function AutomaticHorizontalAxis({
   minSize,
   maxSize,
   minValue,
@@ -78,8 +78,9 @@ export function HorizontalAxis({
     </div>
   );
 }
+AutomaticHorizontalAxis.storyName = 'Automatic horizontal axis';
 
-export function VerticalAxis({
+export function AutomaticVerticalAxis({
   minSize,
   maxSize,
   minValue,
@@ -139,3 +140,5 @@ export function VerticalAxis({
     </div>
   );
 }
+AutomaticVerticalAxis.storyName = 'Automatic vertical axis';
+
