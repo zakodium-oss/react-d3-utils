@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { scaleLog } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { useLogTicks } from '../../src';
+import { LogHorizontalAxis, LogVerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -37,7 +37,6 @@ export function AutomaticHorizontalAxis({
   const [isDown, setIsDown] = useState(true);
 
   const scale = scaleLog().range([0, width]).domain([minValue, maxValue]);
-  const ticks = useLogTicks(scale, 'horizontal', { scientificNotation });
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -56,24 +55,13 @@ export function AutomaticHorizontalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} width={maxSize + 20} height={60}>
-        <g transform="translate(10, 10)">
-          <line x2={width} y1={15} y2={15} stroke="black" />
-          {ticks.map(({ label, position }, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <g key={index + label + position}>
-              <line
-                x1={position}
-                x2={position}
-                y1={10}
-                y2={15}
-                stroke="black"
-              />
-              <text x={position} dominantBaseline="middle" textAnchor="middle">
-                {label}
-              </text>
-            </g>
-          ))}
-        </g>
+        <LogHorizontalAxis
+          x={10}
+          y={10}
+          scale={scale}
+          width={width}
+          scientificNotation={scientificNotation}
+        />
       </svg>
     </div>
   );
@@ -92,7 +80,6 @@ export function AutomaticVerticalAxis({
   const [isDown, setIsDown] = useState(true);
 
   const scale = scaleLog().range([height, 0]).domain([minValue, maxValue]);
-  const ticks = useLogTicks(scale, 'vertical', { scientificNotation });
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -113,29 +100,13 @@ export function AutomaticVerticalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} height={maxSize + 20} width={60}>
-        <g transform="translate(50, 10)">
-          <line y2={height} x1={15} x2={15} stroke="black" />
-          {ticks.map(({ label, position }, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <g key={index + label + position}>
-              <line
-                y1={position}
-                y2={position}
-                x1={10}
-                x2={15}
-                stroke="black"
-              />
-              <text
-                x={5}
-                y={position}
-                dominantBaseline="middle"
-                textAnchor="end"
-              >
-                {label}
-              </text>
-            </g>
-          ))}
-        </g>
+        <LogVerticalAxis
+          x={10}
+          y={10}
+          scale={scale}
+          height={height}
+          scientificNotation={scientificNotation}
+        />
       </svg>
     </div>
   );

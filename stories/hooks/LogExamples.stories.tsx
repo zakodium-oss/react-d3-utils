@@ -1,22 +1,22 @@
 import { Meta } from '@storybook/react';
-import { ScaleLinear, scaleLinear } from 'd3-scale';
+import { ScaleLogarithmic, scaleLog } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { LinearHorizontalAxis, LinearVerticalAxis } from './TestAxis';
+import { LogHorizontalAxis, LogVerticalAxis } from './TestAxis';
 
 export default {
-  title: 'Hooks/static/useLinearPrimaryTicks',
+  title: 'Hooks/static/useLogTicks',
 } as Meta;
 
 const MIN = 50;
 const MAX = 500;
 
 interface HorizontalState {
-  scale: ScaleLinear<number, number>;
+  scale: ScaleLogarithmic<number, number>;
   width: number;
 }
 interface VerticalState {
-  scale: ScaleLinear<number, number>;
+  scale: ScaleLogarithmic<number, number>;
   height: number;
 }
 interface ExampleProps {
@@ -30,7 +30,7 @@ function HorizontalExample({ domain, scientificNotation }: ExampleProps) {
   useEffect(() => {
     let state = [];
     for (let i = MIN; i <= MAX; i += 50) {
-      const scale = scaleLinear().range([0, i]).domain(domain);
+      const scale = scaleLog().range([0, i]).domain(domain);
       state.push({ scale, width: i });
     }
     setState(state);
@@ -40,7 +40,7 @@ function HorizontalExample({ domain, scientificNotation }: ExampleProps) {
     <div>
       <svg style={{ overflow: 'visible' }} width={600} height={600}>
         {state.map(({ scale, width }) => (
-          <LinearHorizontalAxis
+          <LogHorizontalAxis
             key={width}
             x={10}
             y={width - 40}
@@ -55,26 +55,28 @@ function HorizontalExample({ domain, scientificNotation }: ExampleProps) {
 }
 
 export function HorizontalCentaines() {
-  return <HorizontalExample domain={[-100, 500]} scientificNotation={false} />;
+  return <HorizontalExample domain={[10, 100000]} scientificNotation={false} />;
 }
-HorizontalCentaines.storyName = 'Horizontal centaines';
+HorizontalCentaines.storyName = 'Horizontal positive powers';
 
 export function HorizontalDecimals() {
   return (
-    <HorizontalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
+    <HorizontalExample domain={[0.0000001, 100]} scientificNotation={false} />
   );
 }
-HorizontalDecimals.storyName = 'Horizontal decimals';
+HorizontalDecimals.storyName = 'Horizontal negative values';
 
 export function HorizontalScientificCentaines() {
-  return <HorizontalExample domain={[-100, 500]} scientificNotation />;
+  return <HorizontalExample domain={[10, 100000]} scientificNotation />;
 }
-HorizontalScientificCentaines.storyName = 'Horizontal scientific centaines';
+HorizontalScientificCentaines.storyName =
+  'Horizontal scientific positive powers';
 
 export function HorizontalScientificDecimals() {
-  return <HorizontalExample domain={[-0.0001, 0.00005]} scientificNotation />;
+  return <HorizontalExample domain={[0.0000001, 100]} scientificNotation />;
 }
-HorizontalScientificDecimals.storyName = 'Horizontal scientific decimals';
+HorizontalScientificDecimals.storyName =
+  'Horizontal scientific negative values';
 
 function VerticalExample({ domain, scientificNotation }: ExampleProps) {
   const [state, setState] = useState<VerticalState[]>([]);
@@ -82,7 +84,7 @@ function VerticalExample({ domain, scientificNotation }: ExampleProps) {
   useEffect(() => {
     let state = [];
     for (let i = MIN; i <= MAX; i += 50) {
-      const scale = scaleLinear().range([i, 0]).domain(domain);
+      const scale = scaleLog().range([i, 0]).domain(domain);
       state.push({ scale, height: i });
     }
     setState(state);
@@ -92,7 +94,7 @@ function VerticalExample({ domain, scientificNotation }: ExampleProps) {
     <div>
       <svg style={{ overflow: 'visible' }} width={600} height={600}>
         {state.map(({ scale, height }) => (
-          <LinearVerticalAxis
+          <LogVerticalAxis
             key={height}
             x={height * 2 - 40}
             y={10}
@@ -107,23 +109,23 @@ function VerticalExample({ domain, scientificNotation }: ExampleProps) {
 }
 
 export function VerticalCentaines() {
-  return <VerticalExample domain={[-100, 500]} scientificNotation={false} />;
+  return <VerticalExample domain={[10, 100000]} scientificNotation={false} />;
 }
-VerticalCentaines.storyName = 'Vertical centaines';
+VerticalCentaines.storyName = 'Vertical positive powers';
 
 export function VerticalDecimals() {
   return (
-    <VerticalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
+    <VerticalExample domain={[0.0000001, 100]} scientificNotation={false} />
   );
 }
-VerticalDecimals.storyName = 'Vertical decimals';
+VerticalDecimals.storyName = 'Vertical negative values';
 
 export function VerticalScientificCentaines() {
-  return <VerticalExample domain={[-100, 500]} scientificNotation />;
+  return <VerticalExample domain={[10, 100000]} scientificNotation />;
 }
-VerticalScientificCentaines.storyName = 'Vertical scientific centaines';
+VerticalScientificCentaines.storyName = 'Vertical scientific positive powers';
 
 export function VerticalScientificDecimals() {
-  return <VerticalExample domain={[-0.0001, 0.00005]} scientificNotation />;
+  return <VerticalExample domain={[0.0000001, 100]} scientificNotation />;
 }
-VerticalScientificDecimals.storyName = 'Vertical scientific decimals';
+VerticalScientificDecimals.storyName = 'Vertical scientific negative values';
