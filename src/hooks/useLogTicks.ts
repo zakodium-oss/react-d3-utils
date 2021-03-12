@@ -1,4 +1,7 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
+import { MutableRefObject, useEffect, useState } from 'react';
+
+import { textDimentions } from '../utils';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -11,8 +14,9 @@ interface Options {
   tickFormat?: (d: number) => string;
   scientificNotation?: boolean;
   minSpace?: number;
-  fontSize?: number;
 }
+
+const TEST_HEIGHT = '+1234567890';
 
 function isMainTick(value: number): number {
   const index = value / Math.pow(10, Math.round(Math.log10(value)));
@@ -23,13 +27,9 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   ticks: number[],
   scale: Scale,
   format: (d: number) => string,
-  funcWordSpace: (val: number) => number,
+  maxWordSpace: number,
   minSpace: number,
 ): PrimaryLogTicks[] {
-  const maxWordSpace = ticks.reduce(
-    (acc, val) => Math.max(acc, funcWordSpace(val)),
-    0,
-  );
   const scaledTicks = ticks.filter((val) => isMainTick(val) === 1).map(scale);
   const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
   const wordsBetweenTicks = Math.floor(mainTickSpace / maxWordSpace);
@@ -54,27 +54,43 @@ export function useLogTicks<
 >(
   scale: Scale,
   direction: Directions,
+  ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},
 ): PrimaryLogTicks[] {
+  const [fontSize, setFontSize] = useState(40);
+
   const range = scale.range();
   if (!range) throw new Error('Range needs to be specified');
+
+  const domain = scale.domain();
+  if (!domain) throw new Error('Domain needs to be specified');
 
   const {
     scientificNotation = false,
     minSpace = 16,
-    fontSize = 16,
     tickFormat = scientificNotation
       ? (x) => x.toExponential(2)
       : (x) => JSON.stringify(x),
   } = options;
 
-  // Function for getting the label space in axis
-  const funcWordSpace = (value: number) =>
-    direction === 'horizontal'
-      ? (fontSize / 1.3) * tickFormat(value).length
-      : fontSize * 1.4;
+  // Calculates the word density
+  useEffect(() => {
+    if (ref.current) {
+      if (direction === 'horizontal') {
+        const minFormated = tickFormat(domain[0]);
+        const maxFormated = tickFormat(domain[1]);
+        const maxLenWord =
+          minFormated.length > maxFormated.length ? minFormated : maxFormated;
+        const { width } = textDimentions(maxLenWord, ref);
+        setFontSize(Math.ceil(width));
+      } else {
+        const { height } = textDimentions(TEST_HEIGHT, ref);
+        setFontSize(Math.ceil(height));
+      }
+    }
+  }, [direction, domain, tickFormat, ref]);
 
   // Calculates the first paint density
   const defaultTicks = scale.ticks();
-  return formatTicks(defaultTicks, scale, tickFormat, funcWordSpace, minSpace);
+  return formatTicks(defaultTicks, scale, tickFormat, fontSize, minSpace);
 }

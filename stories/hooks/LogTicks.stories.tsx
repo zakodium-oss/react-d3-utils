@@ -101,7 +101,7 @@ export function AutomaticVerticalAxis({
     <div>
       <svg style={{ overflow: 'visible' }} height={maxSize + 20} width={60}>
         <LogVerticalAxis
-          x={10}
+          x={40}
           y={10}
           scale={scale}
           height={height}

@@ -1,5 +1,5 @@
 import { ScaleLinear } from 'd3-scale';
-import React from 'react';
+import React, { forwardRef, MutableRefObject, useRef } from 'react';
 
 import { useLinearPrimaryTicks, useLogTicks } from '../../src';
 
@@ -13,6 +13,7 @@ interface ScaleAxis {
 }
 interface TickAxis {
   ticks: Ticks[];
+  ref: MutableRefObject<SVGGElement | null>;
 }
 interface Horizontal {
   width: number;
@@ -30,9 +31,9 @@ type VerticalAxisProps = BaseAxis & Vertical & ScaleAxis;
 type HorizontalRenderProps = BaseAxis & Horizontal & TickAxis;
 type VerticalRenderProps = BaseAxis & Vertical & TickAxis;
 
-function HorizontalAxis({ x, y, width, ticks }: HorizontalRenderProps) {
-  return (
-    <g transform={`translate(${x}, ${y})`}>
+const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalRenderProps>(
+  ({ x, y, width, ticks }, ref) => (
+    <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line x2={width} y1={15} y2={15} stroke="black" />
       {ticks.map(({ label, position }, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -44,29 +45,32 @@ function HorizontalAxis({ x, y, width, ticks }: HorizontalRenderProps) {
         </g>
       ))}
     </g>
-  );
-}
+  ),
+);
 export function LinearHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
-  const ticks = useLinearPrimaryTicks(scale, 'horizontal', {
+  const ref = useRef<SVGGElement>(null);
+  const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, {
     scientificNotation,
   });
-  return <HorizontalAxis {...other} ticks={ticks} />;
+  return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
 export function LogHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
-  const ticks = useLogTicks(scale, 'horizontal', {
+  const ref = useRef<SVGGElement>(null);
+  const ticks = useLogTicks(scale, 'horizontal', ref, {
     scientificNotation,
   });
-  return <HorizontalAxis {...other} ticks={ticks} />;
+  return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
 
-function VerticalAxis({ x, y, height, ticks }: VerticalRenderProps) {
-  return (
-    <g transform={`translate(${x}, ${y})`}>
+const VerticalAxis = forwardRef<SVGGElement | null, VerticalRenderProps>(
+  ({ x, y, height, ticks }, ref) => (
+    <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line y2={height} x1={15} x2={15} stroke="black" />
-      {ticks.map(({ label, position }) => (
-        <g key={label}>
+      {ticks.map(({ label, position }, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <g key={index + label + position}>
           <line y1={position} y2={position} x1={10} x2={15} stroke="black" />
           <text y={position} dominantBaseline="middle" textAnchor="end">
             {label}
@@ -74,19 +78,21 @@ function VerticalAxis({ x, y, height, ticks }: VerticalRenderProps) {
         </g>
       ))}
     </g>
-  );
-}
+  ),
+);
 export function LinearVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
-  const ticks = useLinearPrimaryTicks(scale, 'vertical', {
+  const ref = useRef<SVGGElement>(null);
+  const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, {
     scientificNotation,
   });
-  return <VerticalAxis {...other} ticks={ticks} />;
+  return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }
 export function LogVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
-  const ticks = useLogTicks(scale, 'vertical', {
+  const ref = useRef<SVGGElement>(null);
+  const ticks = useLogTicks(scale, 'vertical', ref, {
     scientificNotation,
   });
-  return <VerticalAxis {...other} ticks={ticks} />;
+  return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }
