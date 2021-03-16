@@ -20,7 +20,7 @@ const TEST_HEIGHT = '+1234567890';
 
 function isMainTick(value: number): number {
   const index = value / Math.pow(10, Math.round(Math.log10(value)));
-  return index < 1 ? index * 10 : index;
+  return Math.floor(index < 1 ? index * 10 : index);
 }
 
 function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
