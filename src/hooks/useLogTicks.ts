@@ -32,18 +32,18 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
 ): PrimaryLogTicks[] {
   const scaledTicks = ticks.filter((val) => isMainTick(val) === 1).map(scale);
   const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
-  const wordsBetweenTicks = Math.floor(mainTickSpace / maxWordSpace);
-  const mainTicksStep = Math.floor((maxWordSpace + minSpace) / mainTickSpace);
+  const mainTicksStep = Math.max(
+    1,
+    Math.floor((maxWordSpace + minSpace) / mainTickSpace),
+  );
 
   let mainTickCounter = 0;
   return ticks.map((val) => {
     const position = scale(val);
     let label = '';
-    if (wordsBetweenTicks === 0 && isMainTick(val) === 1) {
+    if (isMainTick(val) === 1) {
       label = mainTickCounter === 0 ? format(val) : '';
       mainTickCounter = (mainTickCounter + 1) % mainTicksStep;
-    } else if (isMainTick(val) <= wordsBetweenTicks) {
-      label = format(val);
     }
     return { label, position };
   });
