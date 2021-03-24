@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 
 import { textDimentions } from '../utils';
 
@@ -32,10 +32,8 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
 ): PrimaryLogTicks[] {
   const scaledTicks = ticks.filter((val) => isMainTick(val) === 1).map(scale);
   const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
-  const mainTicksStep = Math.max(
-    1,
-    Math.floor((maxWordSpace + minSpace) / mainTickSpace),
-  );
+  const mainTickRatio = (maxWordSpace + minSpace) / mainTickSpace;
+  const mainTicksStep = mainTickRatio >= 1 ? Math.ceil(mainTickRatio) : 1;
 
   let mainTickCounter = 0;
   return ticks.map((val) => {
@@ -57,7 +55,7 @@ export function useLogTicks<
   ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},
 ): PrimaryLogTicks[] {
-  const [fontSize, setFontSize] = useState(40);
+  const [maxStrSize, setMaxStrSize] = useState(40);
 
   const range = scale.range();
   if (!range) throw new Error('Range needs to be specified');
@@ -67,30 +65,30 @@ export function useLogTicks<
 
   const {
     scientificNotation = false,
-    minSpace = 16,
+    minSpace = 5,
     tickFormat = scientificNotation
       ? (x) => x.toExponential(2)
       : (x) => JSON.stringify(x),
   } = options;
+  const ticks = useMemo(() => scale.ticks(), [scale]);
 
   // Calculates the word density
   useEffect(() => {
     if (ref.current) {
       if (direction === 'horizontal') {
-        const minFormated = tickFormat(domain[0]);
-        const maxFormated = tickFormat(domain[1]);
-        const maxLenWord =
-          minFormated.length > maxFormated.length ? minFormated : maxFormated;
+        const maxLenWord = ticks
+          .filter((val) => isMainTick(val) === 1)
+          .map(tickFormat)
+          .reduce((acc, curr) => (acc.length < curr.length ? curr : acc), '');
         const { width } = textDimentions(maxLenWord, ref);
-        setFontSize(Math.ceil(width));
+        setMaxStrSize(Math.ceil(width));
       } else {
         const { height } = textDimentions(TEST_HEIGHT, ref);
-        setFontSize(Math.ceil(height));
+        setMaxStrSize(Math.ceil(height));
       }
     }
-  }, [direction, domain, tickFormat, ref]);
+  }, [direction, domain, tickFormat, ref, ticks]);
 
   // Calculates the first paint density
-  const defaultTicks = scale.ticks();
-  return formatTicks(defaultTicks, scale, tickFormat, fontSize, minSpace);
+  return formatTicks(ticks, scale, tickFormat, maxStrSize, minSpace);
 }
