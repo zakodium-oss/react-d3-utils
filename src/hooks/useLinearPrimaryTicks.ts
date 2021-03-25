@@ -16,7 +16,6 @@ interface Options {
 }
 
 const TEST_HEIGHT = '+1234567890';
-const MAX_ITERATION = 20;
 
 export function useLinearPrimaryTicks<
   Scale extends ScaleContinuousNumeric<number, number>
@@ -50,7 +49,7 @@ export function useLinearPrimaryTicks<
       let ticks: number[] = [];
 
       if (direction === 'horizontal') {
-        for (let count = 0; count < MAX_ITERATION; count++) {
+        while (true) {
           // get next ticks
           ticks = scale.ticks(tickNumber);
           const formatedTicks = ticks.map(tickFormat);
@@ -71,7 +70,7 @@ export function useLinearPrimaryTicks<
         setTicks(ticks);
       } else {
         const { height } = textDimensions(TEST_HEIGHT, ref);
-        for (let count = 0; count < MAX_ITERATION; count++) {
+        while (true) {
           // get next ticks
           ticks = scale.ticks(tickNumber);
           tickNumber = Math.min(ticks.length, tickNumber || Infinity);
