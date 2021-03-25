@@ -1,7 +1,7 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
 import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 
-import { textDimentions } from '../utils';
+import { textDimensions } from '../utils';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -61,7 +61,7 @@ export function useLinearPrimaryTicks<
           tickNumber = Math.min(ticks.length, tickNumber || Infinity);
 
           // get the current tick space
-          const { width } = textDimentions(formatedTicks.join(''), ref);
+          const { width } = textDimensions(formatedTicks.join(''), ref);
           const size = width + (ticks.length - 1) * minSpace;
 
           // repeats if the size is bigger than current space
@@ -73,8 +73,8 @@ export function useLinearPrimaryTicks<
 
         setTicks(ticks);
       } else {
-        const { height } = textDimentions(TEST_HEIGHT, ref);
-        for (let count = 0; repeat && count < MAX_ITERATION; count++) {
+        const { height } = textDimensions(TEST_HEIGHT, ref);
+        for (let count = 0; count < MAX_ITERATION; count++) {
           // get next ticks
           ticks = scale.ticks(tickNumber);
           tickNumber = Math.min(ticks.length, tickNumber || Infinity);

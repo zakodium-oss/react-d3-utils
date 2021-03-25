@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 
-export function textDimentions(
+export function textDimensions(
   word: string,
   ref: MutableRefObject<SVGGElement | null>,
 ) {

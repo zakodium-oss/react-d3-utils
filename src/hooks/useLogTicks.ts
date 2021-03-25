@@ -1,7 +1,7 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
 import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 
-import { textDimentions } from '../utils';
+import { textDimensions } from '../utils';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -80,10 +80,10 @@ export function useLogTicks<
           .filter((val) => isMainTick(val) === 1)
           .map(tickFormat)
           .reduce((acc, curr) => (acc.length < curr.length ? curr : acc), '');
-        const { width } = textDimentions(maxLenWord, ref);
+        const { width } = textDimensions(maxLenWord, ref);
         setMaxStrSize(Math.ceil(width));
       } else {
-        const { height } = textDimentions(TEST_HEIGHT, ref);
+        const { height } = textDimensions(TEST_HEIGHT, ref);
         setMaxStrSize(Math.ceil(height));
       }
     }
