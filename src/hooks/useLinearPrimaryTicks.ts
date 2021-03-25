@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 
 import { textDimensions } from '../utils';
 
@@ -34,8 +34,12 @@ export function useLinearPrimaryTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const { minSpace = 4 } = options;
-  const tickFormat = options.tickFormat || ((x) => JSON.stringify(x));
+  const { minSpace = 8 } = options;
+  const format = options?.tickFormat;
+  const tickFormat = useCallback(
+    (x: number) => (format ? format(x) : String(x)),
+    [format],
+  );
 
   const axisLength = Math.abs(range[0] - range[1]);
 
@@ -49,7 +53,6 @@ export function useLinearPrimaryTicks<
         for (let count = 0; count < MAX_ITERATION; count++) {
           // get next ticks
           ticks = scale.ticks(tickNumber);
-          const tickFormat = options.tickFormat || ((x) => JSON.stringify(x));
           const formatedTicks = ticks.map(tickFormat);
           tickNumber = Math.min(ticks.length, tickNumber || Infinity);
 
@@ -87,7 +90,7 @@ export function useLinearPrimaryTicks<
         setTicks(ticks);
       }
     }
-  }, [axisLength, direction, minSpace, ref, scale, options.tickFormat]);
+  }, [axisLength, direction, minSpace, ref, scale, tickFormat]);
 
   return ticks.map((val) => ({ label: tickFormat(val), position: scale(val) }));
 }

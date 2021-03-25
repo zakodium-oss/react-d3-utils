@@ -1,5 +1,5 @@
 import { ScaleLinear } from 'd3-scale';
-import React, { forwardRef, MutableRefObject, useRef } from 'react';
+import React, { forwardRef, MutableRefObject, useMemo, useRef } from 'react';
 
 import { useLinearPrimaryTicks, useLogTicks } from '../../src';
 
@@ -31,6 +31,10 @@ type VerticalAxisProps = BaseAxis & Vertical & ScaleAxis;
 type HorizontalRenderProps = BaseAxis & Horizontal & TickAxis;
 type VerticalRenderProps = BaseAxis & Vertical & TickAxis;
 
+function toExponential(x: number) {
+  return x.toExponential(2);
+}
+
 const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalRenderProps>(
   ({ x, y, width, ticks }, ref) => (
     <g ref={ref} transform={`translate(${x}, ${y})`}>
@@ -47,20 +51,25 @@ const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalRenderProps>(
     </g>
   ),
 );
+
 export function LinearHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, {
-    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
-  });
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, { tickFormat });
   return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
 export function LogHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useLogTicks(scale, 'horizontal', ref, {
-    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
-  });
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useLogTicks(scale, 'horizontal', ref, { tickFormat });
   return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
 
@@ -83,16 +92,20 @@ const VerticalAxis = forwardRef<SVGGElement | null, VerticalRenderProps>(
 export function LinearVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, {
-    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
-  });
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, { tickFormat });
   return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }
 export function LogVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useLogTicks(scale, 'vertical', ref, {
-    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
-  });
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useLogTicks(scale, 'vertical', ref, { tickFormat });
   return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }

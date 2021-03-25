@@ -1,5 +1,11 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import { MutableRefObject, useEffect, useMemo, useState } from 'react';
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { textDimensions } from '../utils';
 
@@ -62,7 +68,12 @@ export function useLogTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const { minSpace = 5, tickFormat = (x) => JSON.stringify(x) } = options;
+  const { minSpace = 8 } = options;
+  const format = options?.tickFormat;
+  const tickFormat = useCallback(
+    (x: number) => (format ? format(x) : String(x)),
+    [format],
+  );
   const ticks = useMemo(() => scale.ticks(), [scale]);
 
   // Calculates the word density
