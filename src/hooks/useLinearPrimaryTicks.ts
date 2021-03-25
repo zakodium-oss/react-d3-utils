@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import { MutableRefObject, useEffect, useMemo, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 
 import { textDimensions } from '../utils';
 
@@ -12,7 +12,6 @@ export interface PrimaryLinearTicks {
 
 interface Options {
   tickFormat?: (d: number) => string;
-  scientificNotation?: boolean;
   minSpace?: number;
 }
 
@@ -35,14 +34,8 @@ export function useLinearPrimaryTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const { scientificNotation = false, minSpace = 4 } = options;
-  const tickFormat: (d: number) => string = useMemo(
-    () =>
-      options.tickFormat || scientificNotation
-        ? (x) => x.toExponential(2)
-        : (x) => JSON.stringify(x),
-    [scientificNotation, options.tickFormat],
-  );
+  const { minSpace = 4 } = options;
+  const tickFormat = options.tickFormat || ((x) => JSON.stringify(x));
 
   const axisLength = Math.abs(range[0] - range[1]);
 
@@ -50,13 +43,13 @@ export function useLinearPrimaryTicks<
   useEffect(() => {
     if (ref.current) {
       let tickNumber: number | undefined;
-      let repeat = true;
       let ticks: number[] = [];
 
       if (direction === 'horizontal') {
-        for (let count = 0; repeat && count < MAX_ITERATION; count++) {
+        for (let count = 0; count < MAX_ITERATION; count++) {
           // get next ticks
           ticks = scale.ticks(tickNumber);
+          const tickFormat = options.tickFormat || ((x) => JSON.stringify(x));
           const formatedTicks = ticks.map(tickFormat);
           tickNumber = Math.min(ticks.length, tickNumber || Infinity);
 
@@ -65,9 +58,10 @@ export function useLinearPrimaryTicks<
           const size = width + (ticks.length - 1) * minSpace;
 
           // repeats if the size is bigger than current space
-          repeat = size > axisLength && tickNumber > 1;
-          if (repeat) {
+          if (size > axisLength && tickNumber > 1) {
             tickNumber = tickNumber - 1;
+          } else {
+            break;
           }
         }
 
@@ -83,16 +77,17 @@ export function useLinearPrimaryTicks<
           const size = ticks.length * (height + minSpace) - minSpace;
 
           // repeats if the size is bigger than current space
-          repeat = size > axisLength && tickNumber > 1;
-          if (repeat) {
+          if (size > axisLength && tickNumber > 1) {
             tickNumber = tickNumber - 1;
+          } else {
+            break;
           }
         }
 
         setTicks(ticks);
       }
     }
-  }, [axisLength, direction, minSpace, ref, scale, tickFormat]);
+  }, [axisLength, direction, minSpace, ref, scale, options.tickFormat]);
 
   return ticks.map((val) => ({ label: tickFormat(val), position: scale(val) }));
 }

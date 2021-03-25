@@ -51,7 +51,7 @@ export function LinearHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, {
-    scientificNotation,
+    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
   });
   return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
@@ -59,7 +59,7 @@ export function LogHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useLogTicks(scale, 'horizontal', ref, {
-    scientificNotation,
+    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
   });
   return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
 }
@@ -84,7 +84,7 @@ export function LinearVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, {
-    scientificNotation,
+    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
   });
   return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }
@@ -92,7 +92,7 @@ export function LogVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useLogTicks(scale, 'vertical', ref, {
-    scientificNotation,
+    tickFormat: scientificNotation ? (x) => x.toExponential(2) : undefined,
   });
   return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
 }

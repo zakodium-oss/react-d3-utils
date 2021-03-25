@@ -12,7 +12,6 @@ export interface PrimaryLogTicks {
 
 interface Options {
   tickFormat?: (d: number) => string;
-  scientificNotation?: boolean;
   minSpace?: number;
 }
 
@@ -63,13 +62,7 @@ export function useLogTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const {
-    scientificNotation = false,
-    minSpace = 5,
-    tickFormat = scientificNotation
-      ? (x) => x.toExponential(2)
-      : (x) => JSON.stringify(x),
-  } = options;
+  const { minSpace = 5, tickFormat = (x) => JSON.stringify(x) } = options;
   const ticks = useMemo(() => scale.ticks(), [scale]);
 
   // Calculates the word density
