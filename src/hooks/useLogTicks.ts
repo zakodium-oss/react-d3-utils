@@ -14,6 +14,7 @@ type Directions = 'horizontal' | 'vertical';
 export interface PrimaryLogTicks {
   label: string;
   position: number;
+  value: number;
 }
 
 interface Options {
@@ -41,14 +42,14 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   const mainTicksStep = mainTickRatio >= 1 ? Math.ceil(mainTickRatio) : 1;
 
   let mainTickCounter = 0;
-  return ticks.map((val) => {
-    const position = scale(val);
+  return ticks.map((value) => {
+    const position = scale(value);
     let label = '';
-    if (isMainTick(val) === 1) {
-      label = mainTickCounter === 0 ? format(val) : '';
+    if (isMainTick(value) === 1) {
+      label = mainTickCounter === 0 ? format(value) : '';
       mainTickCounter = (mainTickCounter + 1) % mainTicksStep;
     }
-    return { label, position };
+    return { label, position, value };
   });
 }
 

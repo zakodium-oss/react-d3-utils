@@ -8,6 +8,7 @@ type Directions = 'horizontal' | 'vertical';
 export interface PrimaryLinearTicks {
   label: string;
   position: number;
+  value: number;
 }
 
 interface Options {
@@ -91,5 +92,9 @@ export function useLinearPrimaryTicks<
     }
   }, [axisLength, direction, minSpace, ref, scale, tickFormat]);
 
-  return ticks.map((val) => ({ label: tickFormat(val), position: scale(val) }));
+  return ticks.map((value) => ({
+    label: tickFormat(value),
+    position: scale(value),
+    value,
+  }));
 }
