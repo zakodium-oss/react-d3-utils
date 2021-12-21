@@ -17,9 +17,11 @@ interface TickAxis {
 }
 interface Horizontal {
   width: number;
+  orientation?: string;
 }
 interface Vertical {
   height: number;
+  orientation?: string;
 }
 interface Ticks {
   label: string;
@@ -35,7 +37,7 @@ function toExponential(x: number) {
   return x.toExponential(2);
 }
 
-const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalRenderProps>(
+const HorizontalAxisTop = forwardRef<SVGGElement | null, HorizontalRenderProps>(
   ({ x, y, width, ticks }, ref) => (
     <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line x2={width} y1={15} y2={15} stroke="black" />
@@ -51,16 +53,36 @@ const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalRenderProps>(
     </g>
   ),
 );
-
+const HorizontalAxisBottom = forwardRef<
+  SVGGElement | null,
+  HorizontalRenderProps
+>(({ x, y, width, ticks }, ref) => (
+  <g ref={ref} transform={`translate(${x}, ${y})`}>
+    <line x2={width} y1={15} y2={15} stroke="black" />
+    {ticks.map(({ label, position }, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <g key={index + label + position}>
+        <line x1={position} x2={position} y1={15} y2={20} stroke="black" />
+        <text x={position} y={30} dominantBaseline="middle" textAnchor="middle">
+          {label}
+        </text>
+      </g>
+    ))}
+  </g>
+));
 export function LinearHorizontalAxis(props: HorizontalAxisProps) {
-  const { scale, scientificNotation, ...other } = props;
+  const { scale, scientificNotation, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const tickFormat = useMemo(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
   const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, { tickFormat });
-  return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'top')
+    return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'bottom')
+    return <HorizontalAxisBottom {...other} ticks={ticks} ref={ref} />;
+  return null;
 }
 export function LogHorizontalAxis(props: HorizontalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
@@ -70,10 +92,10 @@ export function LogHorizontalAxis(props: HorizontalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'horizontal', ref, { tickFormat });
-  return <HorizontalAxis {...other} ticks={ticks} ref={ref} />;
+  return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
 }
 
-const VerticalAxis = forwardRef<SVGGElement | null, VerticalRenderProps>(
+const VerticalAxisLeft = forwardRef<SVGGElement | null, VerticalRenderProps>(
   ({ x, y, height, ticks }, ref) => (
     <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line y2={height} x1={15} x2={15} stroke="black" />
@@ -89,15 +111,34 @@ const VerticalAxis = forwardRef<SVGGElement | null, VerticalRenderProps>(
     </g>
   ),
 );
+const VerticalAxisRight = forwardRef<SVGGElement | null, VerticalRenderProps>(
+  ({ x, y, height, ticks }, ref) => (
+    <g ref={ref} transform={`translate(${x}, ${y})`}>
+      <line y2={height} x1={15} x2={15} stroke="black" />
+      {ticks.map(({ label, position }, index) => (
+        <g key={index + label + position}>
+          <line y1={position} y2={position} x1={15} x2={20} stroke="black" />
+          <text y={position} x={50} dominantBaseline="middle" textAnchor="end">
+            {label}
+          </text>
+        </g>
+      ))}
+    </g>
+  ),
+);
 export function LinearVerticalAxis(props: VerticalAxisProps) {
-  const { scale, scientificNotation, ...other } = props;
+  const { scale, scientificNotation, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const tickFormat = useMemo(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
   const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, { tickFormat });
-  return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'left')
+    return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'right')
+    return <VerticalAxisRight {...other} ticks={ticks} ref={ref} />;
+  return null;
 }
 export function LogVerticalAxis(props: VerticalAxisProps) {
   const { scale, scientificNotation, ...other } = props;
@@ -107,5 +148,5 @@ export function LogVerticalAxis(props: VerticalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'vertical', ref, { tickFormat });
-  return <VerticalAxis {...other} ticks={ticks} ref={ref} />;
+  return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
 }
