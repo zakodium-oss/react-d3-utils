@@ -22,14 +22,19 @@ interface VerticalState {
 interface ExampleProps {
   domain: [number, number];
   scientificNotation: boolean;
-  orientation?: string;
+}
+interface VerticalOrientation {
+  orientation?: 'left' | 'right';
 }
 
+interface HorizontalOrientation {
+  orientation?: 'top' | 'bottom';
+}
 function HorizontalExample({
   domain,
   scientificNotation,
   orientation,
-}: ExampleProps) {
+}: ExampleProps & HorizontalOrientation) {
   const [state, setState] = useState<HorizontalState[]>([]);
 
   useEffect(() => {
@@ -95,7 +100,7 @@ function VerticalExample({
   domain,
   scientificNotation,
   orientation,
-}: ExampleProps) {
+}: ExampleProps & VerticalOrientation) {
   const [state, setState] = useState<VerticalState[]>([]);
 
   useEffect(() => {
