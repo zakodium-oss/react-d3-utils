@@ -21,7 +21,7 @@ interface Horizontal {
 }
 interface Vertical {
   height: number;
-  orientation?: string;
+  orientation?: 'left' | 'right';
 }
 interface Ticks {
   label: string;
