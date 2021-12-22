@@ -17,7 +17,7 @@ interface TickAxis {
 }
 interface Horizontal {
   width: number;
-  orientation?: string;
+  orientation?: 'top' | 'bottom';
 }
 interface Vertical {
   height: number;
