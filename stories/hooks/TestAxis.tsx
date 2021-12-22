@@ -17,11 +17,11 @@ interface TickAxis {
 }
 interface Horizontal {
   width: number;
-  orientation?: string;
+  orientation?: 'top' | 'bottom';
 }
 interface Vertical {
   height: number;
-  orientation?: string;
+  orientation?: 'left' | 'right';
 }
 interface Ticks {
   label: string;
