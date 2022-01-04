@@ -13,7 +13,6 @@ interface ScaleAxis {
 }
 interface TickAxis {
   ticks: Ticks[];
-  ref: MutableRefObject<SVGGElement | null>;
 }
 interface Horizontal {
   width: number;
@@ -85,14 +84,18 @@ export function LinearHorizontalAxis(props: HorizontalAxisProps) {
   return null;
 }
 export function LogHorizontalAxis(props: HorizontalAxisProps) {
-  const { scale, scientificNotation, ...other } = props;
+  const { scale, scientificNotation, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const tickFormat = useMemo(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'horizontal', ref, { tickFormat });
-  return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'top')
+    return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'bottom')
+    return <HorizontalAxisBottom {...other} ticks={ticks} ref={ref} />;
+  return null;
 }
 
 const VerticalAxisLeft = forwardRef<SVGGElement | null, VerticalRenderProps>(
@@ -150,12 +153,16 @@ export function LinearVerticalAxis(props: VerticalAxisProps) {
   return null;
 }
 export function LogVerticalAxis(props: VerticalAxisProps) {
-  const { scale, scientificNotation, ...other } = props;
+  const { scale, scientificNotation, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const tickFormat = useMemo(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'vertical', ref, { tickFormat });
-  return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'left')
+    return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
+  if (orientation === 'right')
+    return <VerticalAxisRight {...other} ticks={ticks} ref={ref} />;
+  return null;
 }
