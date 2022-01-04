@@ -77,10 +77,12 @@ export function LinearHorizontalAxis(props: HorizontalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, { tickFormat });
-  if (orientation === 'top')
+  if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
-  if (orientation === 'bottom')
+  }
+  if (orientation === 'bottom') {
     return <HorizontalAxisBottom {...other} ticks={ticks} ref={ref} />;
+  }
   return null;
 }
 export function LogHorizontalAxis(props: HorizontalAxisProps) {
@@ -91,10 +93,12 @@ export function LogHorizontalAxis(props: HorizontalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'horizontal', ref, { tickFormat });
-  if (orientation === 'top')
+  if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
-  if (orientation === 'bottom')
+  }
+  if (orientation === 'bottom') {
     return <HorizontalAxisBottom {...other} ticks={ticks} ref={ref} />;
+  }
   return null;
 }
 
@@ -146,10 +150,12 @@ export function LinearVerticalAxis(props: VerticalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, { tickFormat });
-  if (orientation === 'left')
+  if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
-  if (orientation === 'right')
+  }
+  if (orientation === 'right') {
     return <VerticalAxisRight {...other} ticks={ticks} ref={ref} />;
+  }
   return null;
 }
 export function LogVerticalAxis(props: VerticalAxisProps) {
@@ -160,9 +166,11 @@ export function LogVerticalAxis(props: VerticalAxisProps) {
     [scientificNotation],
   );
   const ticks = useLogTicks(scale, 'vertical', ref, { tickFormat });
-  if (orientation === 'left')
+  if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
-  if (orientation === 'right')
+  }
+  if (orientation === 'right') {
     return <VerticalAxisRight {...other} ticks={ticks} ref={ref} />;
+  }
   return null;
 }
