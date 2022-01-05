@@ -23,8 +23,18 @@ interface ExampleProps {
   domain: [number, number];
   scientificNotation: boolean;
 }
+interface VerticalOrientation {
+  orientation?: 'left' | 'right';
+}
 
-function HorizontalExample({ domain, scientificNotation }: ExampleProps) {
+interface HorizontalOrientation {
+  orientation?: 'top' | 'bottom';
+}
+function HorizontalExample({
+  domain,
+  scientificNotation,
+  orientation,
+}: ExampleProps & HorizontalOrientation) {
   const [state, setState] = useState<HorizontalState[]>([]);
 
   useEffect(() => {
@@ -41,6 +51,7 @@ function HorizontalExample({ domain, scientificNotation }: ExampleProps) {
       <svg style={{ overflow: 'visible' }} width={600} height={600}>
         {state.map(({ scale, width }) => (
           <LinearHorizontalAxis
+            orientation={orientation}
             key={width}
             x={10}
             y={width - 40}
@@ -58,7 +69,16 @@ export function HorizontalCentaines() {
   return <HorizontalExample domain={[-100, 500]} scientificNotation={false} />;
 }
 HorizontalCentaines.storyName = 'Horizontal centaines';
-
+export function HorizontalCentainesBottom() {
+  return (
+    <HorizontalExample
+      domain={[-100, 500]}
+      scientificNotation={false}
+      orientation="bottom"
+    />
+  );
+}
+HorizontalCentainesBottom.storyName = 'Horizontal centaines bottom';
 export function HorizontalDecimals() {
   return (
     <HorizontalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
@@ -76,7 +96,11 @@ export function HorizontalScientificDecimals() {
 }
 HorizontalScientificDecimals.storyName = 'Horizontal scientific decimals';
 
-function VerticalExample({ domain, scientificNotation }: ExampleProps) {
+function VerticalExample({
+  domain,
+  scientificNotation,
+  orientation,
+}: ExampleProps & VerticalOrientation) {
   const [state, setState] = useState<VerticalState[]>([]);
 
   useEffect(() => {
@@ -93,6 +117,7 @@ function VerticalExample({ domain, scientificNotation }: ExampleProps) {
       <svg style={{ overflow: 'visible' }} width={600} height={600}>
         {state.map(({ scale, height }) => (
           <LinearVerticalAxis
+            orientation={orientation}
             key={height}
             x={height * 2 - 40}
             y={10}
@@ -110,7 +135,16 @@ export function VerticalCentaines() {
   return <VerticalExample domain={[-100, 500]} scientificNotation={false} />;
 }
 VerticalCentaines.storyName = 'Vertical centaines';
-
+export function VerticalCentainesRight() {
+  return (
+    <VerticalExample
+      domain={[-100, 500]}
+      scientificNotation={false}
+      orientation="right"
+    />
+  );
+}
+VerticalCentainesRight.storyName = 'Vertical centaines right';
 export function VerticalDecimals() {
   return (
     <VerticalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
