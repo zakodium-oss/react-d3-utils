@@ -10,6 +10,7 @@ export interface AlignGroupProps {
   verticalAlign?: Align;
   horizontalAlign?: Align;
   children: ReactNode | ReactNode[];
+  none?: boolean;
 }
 
 function calculatePosition(start: number, align: Align, space: number) {
@@ -36,19 +37,28 @@ export function AlignGroup(props: AlignGroupProps) {
     verticalAlign = 'start',
     horizontalAlign = 'start',
     children,
+    none = false,
   } = props;
 
   const observed = useBBoxObserver();
 
   const xPosition = useMemo(
     () =>
-      calculatePosition(x - observed.x, horizontalAlign, observed.width || 0),
-    [x, horizontalAlign, observed.x, observed.width],
+      !none
+        ? calculatePosition(
+            x - observed.x,
+            horizontalAlign,
+            observed.width || 0,
+          )
+        : x,
+    [none, x, observed.x, observed.width, horizontalAlign],
   );
   const yPosition = useMemo(
     () =>
-      calculatePosition(y - observed.y, verticalAlign, observed.height || 0),
-    [y, verticalAlign, observed.y, observed.height],
+      !none
+        ? calculatePosition(y - observed.y, verticalAlign, observed.height || 0)
+        : y,
+    [none, y, observed.y, observed.height, verticalAlign],
   );
 
   return (
