@@ -1,7 +1,7 @@
 import { ScaleLinear } from 'd3-scale';
 import React, { forwardRef, useMemo, useRef } from 'react';
 
-import { useLinearPrimaryTicks, useLogTicks } from '../../src';
+import { useLinearPrimaryTicks, useLogTicks, useTimeTicks } from '../../src';
 
 interface BaseAxis {
   x: number;
@@ -89,6 +89,24 @@ export function LinearHorizontalAxis(
   }
   return null;
 }
+export function TimeHorizontalAxis(
+  props: HorizontalAxisProps & HorizontalOrientation,
+) {
+  const { scale, scientificNotation, orientation = 'top', ...other } = props;
+  const ref = useRef<SVGGElement>(null);
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useTimeTicks(scale, 'horizontal', ref, { tickFormat });
+  if (orientation === 'top') {
+    return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
+  }
+  if (orientation === 'bottom') {
+    return <HorizontalAxisBottom {...other} ticks={ticks} ref={ref} />;
+  }
+  return null;
+}
 export function LogHorizontalAxis(
   props: HorizontalAxisProps & HorizontalOrientation,
 ) {
@@ -156,6 +174,24 @@ export function LinearVerticalAxis(
     [scientificNotation],
   );
   const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, { tickFormat });
+  if (orientation === 'left') {
+    return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
+  }
+  if (orientation === 'right') {
+    return <VerticalAxisRight {...other} ticks={ticks} ref={ref} />;
+  }
+  return null;
+}
+export function TimeVerticalAxis(
+  props: VerticalAxisProps & VerticalOrientation,
+) {
+  const { scale, scientificNotation, orientation = 'left', ...other } = props;
+  const ref = useRef<SVGGElement>(null);
+  const tickFormat = useMemo(
+    () => (scientificNotation ? toExponential : undefined),
+    [scientificNotation],
+  );
+  const ticks = useTimeTicks(scale, 'vertical', ref, { tickFormat });
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }
