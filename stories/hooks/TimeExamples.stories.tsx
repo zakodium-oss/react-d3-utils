@@ -20,8 +20,7 @@ interface VerticalState {
   height: number;
 }
 interface ExampleProps {
-  domain: [number, number];
-  scientificNotation: boolean;
+  domain: [Date | number, Date | number];
 }
 interface VerticalOrientation {
   orientation?: 'left' | 'right';
@@ -32,19 +31,18 @@ interface HorizontalOrientation {
 }
 function HorizontalExample({
   domain,
-  scientificNotation,
   orientation,
 }: ExampleProps & HorizontalOrientation) {
   const [state, setState] = useState<HorizontalState[]>([]);
 
   useEffect(() => {
-    let state = [];
+    let state: HorizontalState[] = [];
     for (let i = MIN; i <= MAX; i += 50) {
       const scale = scaleLinear().range([0, i]).domain(domain);
       state.push({ scale, width: i });
     }
     setState(state);
-  }, [domain, scientificNotation]);
+  }, [domain]);
 
   return (
     <div>
@@ -56,7 +54,6 @@ function HorizontalExample({
             x={10}
             y={width - 40}
             scale={scale}
-            scientificNotation={scientificNotation}
             width={width}
           />
         ))}
@@ -66,39 +63,26 @@ function HorizontalExample({
 }
 
 export function HorizontalCentaines() {
-  return <HorizontalExample domain={[-100, 500]} scientificNotation={false} />;
+  return (
+    <HorizontalExample
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
+    />
+  );
 }
 HorizontalCentaines.storyName = 'Horizontal centaines';
 export function HorizontalCentainesBottom() {
   return (
     <HorizontalExample
-      domain={[-100, 500]}
-      scientificNotation={false}
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
       orientation="bottom"
     />
   );
 }
 HorizontalCentainesBottom.storyName = 'Horizontal centaines bottom';
-export function HorizontalDecimals() {
-  return (
-    <HorizontalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
-  );
-}
-HorizontalDecimals.storyName = 'Horizontal decimals';
-
-export function HorizontalScientificCentaines() {
-  return <HorizontalExample domain={[-100, 500]} scientificNotation />;
-}
-HorizontalScientificCentaines.storyName = 'Horizontal scientific centaines';
-
-export function HorizontalScientificDecimals() {
-  return <HorizontalExample domain={[-0.0001, 0.00005]} scientificNotation />;
-}
-HorizontalScientificDecimals.storyName = 'Horizontal scientific decimals';
 
 function VerticalExample({
   domain,
-  scientificNotation,
+
   orientation,
 }: ExampleProps & VerticalOrientation) {
   const [state, setState] = useState<VerticalState[]>([]);
@@ -110,7 +94,7 @@ function VerticalExample({
       state.push({ scale, height: i });
     }
     setState(state);
-  }, [domain, scientificNotation]);
+  }, [domain]);
 
   return (
     <div>
@@ -122,7 +106,6 @@ function VerticalExample({
             x={height * 2 - 40}
             y={10}
             scale={scale}
-            scientificNotation={scientificNotation}
             height={height}
           />
         ))}
@@ -132,32 +115,19 @@ function VerticalExample({
 }
 
 export function VerticalCentaines() {
-  return <VerticalExample domain={[-100, 500]} scientificNotation={false} />;
+  return (
+    <VerticalExample
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
+    />
+  );
 }
 VerticalCentaines.storyName = 'Vertical centaines';
 export function VerticalCentainesRight() {
   return (
     <VerticalExample
-      domain={[-100, 500]}
-      scientificNotation={false}
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
       orientation="right"
     />
   );
 }
 VerticalCentainesRight.storyName = 'Vertical centaines right';
-export function VerticalDecimals() {
-  return (
-    <VerticalExample domain={[-0.0001, 0.00005]} scientificNotation={false} />
-  );
-}
-VerticalDecimals.storyName = 'Vertical decimals';
-
-export function VerticalScientificCentaines() {
-  return <VerticalExample domain={[-100, 500]} scientificNotation />;
-}
-VerticalScientificCentaines.storyName = 'Vertical scientific centaines';
-
-export function VerticalScientificDecimals() {
-  return <VerticalExample domain={[-0.0001, 0.00005]} scientificNotation />;
-}
-VerticalScientificDecimals.storyName = 'Vertical scientific decimals';

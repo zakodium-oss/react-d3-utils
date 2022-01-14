@@ -9,7 +9,7 @@ interface BaseAxis {
 }
 interface ScaleAxis {
   scale: ScaleLinear<number, number>;
-  scientificNotation: boolean;
+  scientificNotation?: boolean;
 }
 interface TickAxis {
   ticks: Ticks[];
@@ -92,13 +92,11 @@ export function LinearHorizontalAxis(
 export function TimeHorizontalAxis(
   props: HorizontalAxisProps & HorizontalOrientation,
 ) {
-  const { scale, scientificNotation, orientation = 'top', ...other } = props;
+  const { scale, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const tickFormat = useMemo(
-    () => (scientificNotation ? toExponential : undefined),
-    [scientificNotation],
-  );
-  const ticks = useTimeTicks(scale, 'horizontal', ref, { tickFormat });
+  const ticks = useTimeTicks(scale, 'horizontal', ref, {
+    tickFormat: scale.tickFormat(0, ':%S'),
+  });
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
   }
@@ -187,11 +185,9 @@ export function TimeVerticalAxis(
 ) {
   const { scale, scientificNotation, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const tickFormat = useMemo(
-    () => (scientificNotation ? toExponential : undefined),
-    [scientificNotation],
-  );
-  const ticks = useTimeTicks(scale, 'vertical', ref, { tickFormat });
+  const ticks = useTimeTicks(scale, 'vertical', ref, {
+    tickFormat: scale.tickFormat(0, ':%S'),
+  });
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }
