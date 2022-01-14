@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import { ScaleLinear, scaleLinear } from 'd3-scale';
+import { ScaleTime, scaleTime } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
 import { TimeHorizontalAxis, TimeVerticalAxis } from './TestAxis';
@@ -12,11 +12,11 @@ const MIN = 50;
 const MAX = 500;
 
 interface HorizontalState {
-  scale: ScaleLinear<number, number>;
+  scale: ScaleTime<number, number>;
   width: number;
 }
 interface VerticalState {
-  scale: ScaleLinear<number, number>;
+  scale: ScaleTime<number, number>;
   height: number;
 }
 interface ExampleProps {
@@ -38,7 +38,7 @@ function HorizontalExample({
   useEffect(() => {
     let state: HorizontalState[] = [];
     for (let i = MIN; i <= MAX; i += 50) {
-      const scale = scaleLinear().range([0, i]).domain(domain);
+      const scale = scaleTime().range([0, i]).domain(domain);
       state.push({ scale, width: i });
     }
     setState(state);
@@ -65,7 +65,7 @@ function HorizontalExample({
 export function HorizontalCentaines() {
   return (
     <HorizontalExample
-      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
+      domain={[Date.now(), Date.now() + 24 * 60 * 60 * 1000]}
     />
   );
 }
@@ -73,7 +73,7 @@ HorizontalCentaines.storyName = 'Horizontal centaines';
 export function HorizontalCentainesBottom() {
   return (
     <HorizontalExample
-      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 20)]}
       orientation="bottom"
     />
   );
@@ -88,9 +88,9 @@ function VerticalExample({
   const [state, setState] = useState<VerticalState[]>([]);
 
   useEffect(() => {
-    let state = [];
+    let state: VerticalState[] = [];
     for (let i = MIN; i <= MAX; i += 50) {
-      const scale = scaleLinear().range([i, 0]).domain(domain);
+      const scale = scaleTime().range([i, 0]).domain(domain);
       state.push({ scale, height: i });
     }
     setState(state);
@@ -117,7 +117,7 @@ function VerticalExample({
 export function VerticalCentaines() {
   return (
     <VerticalExample
-      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 17)]}
+      domain={[new Date(2000, 0, 1, 16), new Date(2000, 0, 1, 19)]}
     />
   );
 }

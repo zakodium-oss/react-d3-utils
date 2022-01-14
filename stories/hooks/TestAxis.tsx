@@ -1,4 +1,4 @@
-import { ScaleLinear } from 'd3-scale';
+import { ScaleLinear, ScaleTime } from 'd3-scale';
 import React, { forwardRef, useMemo, useRef } from 'react';
 
 import { useLinearPrimaryTicks, useLogTicks, useTimeTicks } from '../../src';
@@ -10,6 +10,9 @@ interface BaseAxis {
 interface ScaleAxis {
   scale: ScaleLinear<number, number>;
   scientificNotation?: boolean;
+}
+interface ScaleTimeAxis {
+  scale: ScaleTime<number, number>;
 }
 interface TickAxis {
   ticks: Ticks[];
@@ -33,6 +36,9 @@ interface Ticks {
 
 type HorizontalAxisProps = BaseAxis & Horizontal & ScaleAxis;
 type VerticalAxisProps = BaseAxis & Vertical & ScaleAxis;
+
+type HorizontalTimeAxisProps = BaseAxis & Horizontal & ScaleTimeAxis;
+type VerticalTimeAxisProps = BaseAxis & Vertical & ScaleTimeAxis;
 type HorizontalRenderProps = BaseAxis & Horizontal & TickAxis;
 type VerticalRenderProps = BaseAxis & Vertical & TickAxis;
 
@@ -90,12 +96,12 @@ export function LinearHorizontalAxis(
   return null;
 }
 export function TimeHorizontalAxis(
-  props: HorizontalAxisProps & HorizontalOrientation,
+  props: HorizontalTimeAxisProps & HorizontalOrientation,
 ) {
   const { scale, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useTimeTicks(scale, 'horizontal', ref, {
-    tickFormat: scale.tickFormat(0, ':%S'),
+    tickFormat: scale.tickFormat(0, '%I:%M'),
   });
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
@@ -181,12 +187,12 @@ export function LinearVerticalAxis(
   return null;
 }
 export function TimeVerticalAxis(
-  props: VerticalAxisProps & VerticalOrientation,
+  props: VerticalTimeAxisProps & VerticalOrientation,
 ) {
-  const { scale, scientificNotation, orientation = 'left', ...other } = props;
+  const { scale, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
   const ticks = useTimeTicks(scale, 'vertical', ref, {
-    tickFormat: scale.tickFormat(0, ':%S'),
+    tickFormat: scale.tickFormat(0, '%I:%M'),
   });
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;

@@ -1,4 +1,4 @@
-import type { ScaleContinuousNumeric } from 'd3-scale';
+import type { ScaleTime } from 'd3-scale';
 import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 
 import { textDimensions } from '../utils';
@@ -8,25 +8,23 @@ type Directions = 'horizontal' | 'vertical';
 export interface TimeTicks {
   label: string;
   position: number;
-  value: number;
+  value: Date;
 }
 
 interface Options {
-  tickFormat?: (d: number) => string;
+  tickFormat?: (d: Date) => string;
   minSpace?: number;
 }
 
 const TEST_HEIGHT = '+1234567890';
 
-export function useTimeTicks<
-  Scale extends ScaleContinuousNumeric<number, number>,
->(
+export function useTimeTicks<Scale extends ScaleTime<number, number>>(
   scale: Scale,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},
 ): TimeTicks[] {
-  const [ticks, setTicks] = useState<number[]>([]);
+  const [ticks, setTicks] = useState<Date[]>([]);
 
   const range = scale.range();
   if (!range) throw new Error('Range needs to be specified');
@@ -37,7 +35,7 @@ export function useTimeTicks<
   const { minSpace = 8 } = options;
   const format = options?.tickFormat;
   const tickFormat = useMemo(
-    () => (format ? (x: number) => format(x) : scale.tickFormat()),
+    () => (format ? (x: Date) => format(x) : scale.tickFormat(0, ':%S')),
     [format, scale],
   );
 
@@ -47,7 +45,7 @@ export function useTimeTicks<
   useEffect(() => {
     if (ref.current) {
       let tickNumber: number | undefined;
-      let ticks: number[] = [];
+      let ticks: Date[] = [];
 
       if (direction === 'horizontal') {
         while (true) {
