@@ -35,7 +35,7 @@ export function useTimeTicks<Scale extends ScaleTime<number, number>>(
   const { minSpace = 8 } = options;
   const format = options?.tickFormat;
   const tickFormat = useMemo(
-    () => (format ? (x: Date) => format(x) : scale.tickFormat(0, ':%S')),
+    () => (format ? (x: Date) => format(x) : scale.tickFormat()),
     [format, scale],
   );
 

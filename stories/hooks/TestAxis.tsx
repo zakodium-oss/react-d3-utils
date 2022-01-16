@@ -100,9 +100,7 @@ export function TimeHorizontalAxis(
 ) {
   const { scale, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useTimeTicks(scale, 'horizontal', ref, {
-    tickFormat: scale.tickFormat(0, '%I:%M'),
-  });
+  const ticks = useTimeTicks(scale, 'horizontal', ref, {});
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
   }
@@ -191,9 +189,7 @@ export function TimeVerticalAxis(
 ) {
   const { scale, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useTimeTicks(scale, 'vertical', ref, {
-    tickFormat: scale.tickFormat(0, '%I:%M'),
-  });
+  const ticks = useTimeTicks(scale, 'vertical', ref, {});
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }
