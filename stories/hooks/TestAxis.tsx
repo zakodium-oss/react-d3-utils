@@ -189,7 +189,9 @@ export function TimeVerticalAxis(
 ) {
   const { scale, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useTimeTicks(scale, 'vertical', ref, {});
+  const ticks = useTimeTicks(scale, 'vertical', ref, {
+    tickFormat: scale.tickFormat(0, '%I:%M'),
+  });
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }
