@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { scaleLog } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { LogHorizontalAxis, LogVerticalAxis } from './TestAxis';
+import { HorizontalAxis, VerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -55,12 +55,13 @@ export function AutomaticHorizontalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} width={maxSize + 20} height={60}>
-        <LogHorizontalAxis
+        <HorizontalAxis
           x={10}
           y={10}
           scale={scale}
           width={width}
           scientificNotation={scientificNotation}
+          type="log"
         />
       </svg>
     </div>
@@ -100,12 +101,13 @@ export function AutomaticVerticalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} height={maxSize + 20} width={60}>
-        <LogVerticalAxis
+        <VerticalAxis
           x={40}
           y={10}
           scale={scale}
           height={height}
           scientificNotation={scientificNotation}
+          type="log"
         />
       </svg>
     </div>

@@ -1,4 +1,4 @@
-import { ScaleLinear, ScaleTime } from 'd3-scale';
+import { ScaleLinear, ScaleLogarithmic, ScaleTime } from 'd3-scale';
 import React, { forwardRef, useMemo, useRef } from 'react';
 
 import { useLinearPrimaryTicks, useLogTicks, useTimeTicks } from '../../src';
@@ -7,12 +7,13 @@ interface BaseAxis {
   x: number;
   y: number;
 }
-interface ScaleAxis {
-  scale: ScaleLinear<number, number>;
+type Scales =
+  | ScaleLinear<number, number>
+  | ScaleTime<number, number>
+  | ScaleLogarithmic<number, number>;
+interface ScaleAxis<T> {
+  scale: T;
   scientificNotation?: boolean;
-}
-interface ScaleTimeAxis {
-  scale: ScaleTime<number, number>;
 }
 interface TickAxis {
   ticks: Ticks[];
@@ -34,11 +35,8 @@ interface Ticks {
   position: number;
 }
 
-type HorizontalAxisProps = BaseAxis & Horizontal & ScaleAxis;
-type VerticalAxisProps = BaseAxis & Vertical & ScaleAxis;
-
-type HorizontalTimeAxisProps = BaseAxis & Horizontal & ScaleTimeAxis;
-type VerticalTimeAxisProps = BaseAxis & Vertical & ScaleTimeAxis;
+type HorizontalAxisProps<T> = BaseAxis & Horizontal & ScaleAxis<T>;
+type VerticalAxisProps<T> = BaseAxis & Vertical & ScaleAxis<T>;
 type HorizontalRenderProps = BaseAxis & Horizontal & TickAxis;
 type VerticalRenderProps = BaseAxis & Vertical & TickAxis;
 
@@ -77,8 +75,42 @@ const HorizontalAxisBottom = forwardRef<
     ))}
   </g>
 ));
-export function LinearHorizontalAxis(
-  props: HorizontalAxisProps & HorizontalOrientation,
+export function HorizontalAxis(
+  props: HorizontalAxisProps<Scales> &
+    HorizontalOrientation & {
+      type: 'linear' | 'log' | 'time';
+    },
+) {
+  const { scale, type, ...other } = props;
+  switch (type) {
+    case 'linear':
+      return (
+        <LinearHorizontalAxis
+          scale={scale as ScaleLinear<number, number>}
+          {...other}
+        />
+      );
+    case 'log':
+      return (
+        <LogHorizontalAxis
+          scale={scale as ScaleLogarithmic<number, number>}
+          {...other}
+        />
+      );
+    case 'time':
+      return (
+        <TimeHorizontalAxis
+          scale={scale as ScaleTime<number, number>}
+          {...other}
+        />
+      );
+    default:
+      return null;
+  }
+}
+function LinearHorizontalAxis(
+  props: HorizontalAxisProps<ScaleLinear<number, number>> &
+    HorizontalOrientation,
 ) {
   const { scale, scientificNotation, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
@@ -95,8 +127,8 @@ export function LinearHorizontalAxis(
   }
   return null;
 }
-export function TimeHorizontalAxis(
-  props: HorizontalTimeAxisProps & HorizontalOrientation,
+function TimeHorizontalAxis(
+  props: HorizontalAxisProps<ScaleTime<number, number>> & HorizontalOrientation,
 ) {
   const { scale, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
@@ -109,8 +141,9 @@ export function TimeHorizontalAxis(
   }
   return null;
 }
-export function LogHorizontalAxis(
-  props: HorizontalAxisProps & HorizontalOrientation,
+function LogHorizontalAxis(
+  props: HorizontalAxisProps<ScaleLogarithmic<number, number>> &
+    HorizontalOrientation,
 ) {
   const { scale, scientificNotation, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
@@ -166,8 +199,41 @@ const VerticalAxisRight = forwardRef<SVGGElement | null, VerticalRenderProps>(
     </g>
   ),
 );
-export function LinearVerticalAxis(
-  props: VerticalAxisProps & VerticalOrientation,
+export function VerticalAxis(
+  props: VerticalAxisProps<Scales> &
+    VerticalOrientation & {
+      type: 'linear' | 'log' | 'time';
+    },
+) {
+  const { scale, type, ...other } = props;
+  switch (type) {
+    case 'linear':
+      return (
+        <LinearVerticalAxis
+          scale={scale as ScaleLinear<number, number>}
+          {...other}
+        />
+      );
+    case 'log':
+      return (
+        <LogVerticalAxis
+          scale={scale as ScaleLogarithmic<number, number>}
+          {...other}
+        />
+      );
+    case 'time':
+      return (
+        <TimeVerticalAxis
+          scale={scale as ScaleTime<number, number>}
+          {...other}
+        />
+      );
+    default:
+      return null;
+  }
+}
+function LinearVerticalAxis(
+  props: VerticalAxisProps<ScaleLinear<number, number>> & VerticalOrientation,
 ) {
   const { scale, scientificNotation, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
@@ -184,8 +250,8 @@ export function LinearVerticalAxis(
   }
   return null;
 }
-export function TimeVerticalAxis(
-  props: VerticalTimeAxisProps & VerticalOrientation,
+function TimeVerticalAxis(
+  props: VerticalAxisProps<ScaleTime<number, number>> & VerticalOrientation,
 ) {
   const { scale, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
@@ -200,8 +266,9 @@ export function TimeVerticalAxis(
   }
   return null;
 }
-export function LogVerticalAxis(
-  props: VerticalAxisProps & VerticalOrientation,
+function LogVerticalAxis(
+  props: VerticalAxisProps<ScaleLogarithmic<number, number>> &
+    VerticalOrientation,
 ) {
   const { scale, scientificNotation, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);

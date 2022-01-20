@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { scaleTime } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { TimeHorizontalAxis, TimeVerticalAxis } from './TestAxis';
+import { HorizontalAxis, VerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -56,7 +56,7 @@ export function AutomaticHorizontalAxis({
         width={maxSize + 20}
         height={60}
       >
-        <TimeHorizontalAxis x={10} y={10} scale={scale} width={width} />
+        <HorizontalAxis x={10} y={10} scale={scale} width={width} type="time" />
       </svg>
     </div>
   );
@@ -98,7 +98,7 @@ export function AutomaticVerticalAxis({
         height={maxSize + 20}
         width={60}
       >
-        <TimeVerticalAxis x={10} y={10} scale={scale} height={height} />
+        <VerticalAxis x={10} y={10} scale={scale} height={height} type="time" />
       </svg>
     </div>
   );

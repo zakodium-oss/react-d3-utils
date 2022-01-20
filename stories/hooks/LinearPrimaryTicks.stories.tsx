@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { scaleLinear } from 'd3-scale';
 import { useEffect, useState } from 'react';
 
-import { LinearHorizontalAxis, LinearVerticalAxis } from './TestAxis';
+import { HorizontalAxis, VerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -55,12 +55,13 @@ export function AutomaticHorizontalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} width={maxSize + 20} height={60}>
-        <LinearHorizontalAxis
+        <HorizontalAxis
           x={10}
           y={10}
           scale={scale}
           width={width}
           scientificNotation={scientificNotation}
+          type="linear"
         />
       </svg>
     </div>
@@ -100,12 +101,13 @@ export function AutomaticVerticalAxis({
   return (
     <div>
       <svg style={{ overflow: 'visible' }} height={maxSize + 20} width={60}>
-        <LinearVerticalAxis
+        <VerticalAxis
           x={10}
           y={10}
           scale={scale}
           height={height}
           scientificNotation={scientificNotation}
+          type="linear"
         />
       </svg>
     </div>
