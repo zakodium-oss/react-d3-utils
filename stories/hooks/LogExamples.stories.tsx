@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import React from 'react';
 
 import { HorizontalExample, VerticalExample } from './StoryExamples';
 
@@ -6,15 +7,17 @@ export default {
   title: 'Hooks/static/useLogTicks',
 } as Meta;
 
-export function HorizontalCentaines() {
-  return (
-    <HorizontalExample
-      domain={[10, 100000]}
-      scientificNotation={false}
-      type="log"
-    />
-  );
+interface Props {
+  domain: [number, number];
+  scientificNotation: boolean;
 }
+export function HorizontalCentaines(props: Props) {
+  return <HorizontalExample {...props} type="log" />;
+}
+HorizontalCentaines.args = {
+  domain: [10, 100000],
+  scientificNotation: false,
+};
 HorizontalCentaines.storyName = 'Horizontal positive powers';
 
 export function HorizontalDecimals() {

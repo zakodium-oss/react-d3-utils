@@ -3,14 +3,12 @@ import React, { forwardRef, useMemo, useRef } from 'react';
 
 import { useLinearPrimaryTicks, useLogTicks, useTimeTicks } from '../../src';
 
+import { Scales } from './StoryExamples';
+
 interface BaseAxis {
   x: number;
   y: number;
 }
-type Scales =
-  | ScaleLinear<number, number>
-  | ScaleTime<number, number>
-  | ScaleLogarithmic<number, number>;
 interface ScaleAxis<T> {
   scale: T;
   scientificNotation?: boolean;

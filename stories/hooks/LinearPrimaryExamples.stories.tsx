@@ -1,31 +1,31 @@
 import { Meta } from '@storybook/react';
+import React from 'react';
 
 import { HorizontalExample, VerticalExample } from './StoryExamples';
 
 export default {
   title: 'Hooks/static/useLinearPrimaryTicks',
 } as Meta;
-
-export function HorizontalCentaines() {
-  return (
-    <HorizontalExample
-      domain={[-100, 500]}
-      scientificNotation={false}
-      type="linear"
-    />
-  );
+interface Props {
+  domain: [number, number];
+  scientificNotation: boolean;
 }
+export function HorizontalCentaines(props: Props) {
+  return <HorizontalExample {...props} type="linear" />;
+}
+HorizontalCentaines.args = {
+  domain: [-100, 500],
+  scientificNotation: false,
+};
 HorizontalCentaines.storyName = 'Horizontal centaines';
-export function HorizontalCentainesBottom() {
-  return (
-    <HorizontalExample
-      domain={[-100, 500]}
-      scientificNotation={false}
-      orientation="bottom"
-      type="linear"
-    />
-  );
+export function HorizontalCentainesBottom(props: Props) {
+  return <HorizontalExample {...props} orientation="bottom" type="linear" />;
 }
+
+HorizontalCentainesBottom.args = {
+  domain: [-100, 500],
+  scientificNotation: false,
+};
 HorizontalCentainesBottom.storyName = 'Horizontal centaines bottom';
 export function HorizontalDecimals() {
   return (

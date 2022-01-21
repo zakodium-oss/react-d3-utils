@@ -1,19 +1,24 @@
 import { Meta } from '@storybook/react';
+import React from 'react';
 
 import { HorizontalExample, VerticalExample } from './StoryExamples';
 
 export default {
   title: 'Hooks/static/useTimeTicks',
+  parameters: {
+    docs: { inlineStories: true },
+  },
 } as Meta;
 
-export function HorizontalCentaines() {
-  return (
-    <HorizontalExample
-      domain={[Date.now(), Date.now() + 24 * 60 * 60 * 1000]}
-      type="time"
-    />
-  );
+interface Props {
+  domain: [number | Date, number | Date];
 }
+export function HorizontalCentaines(props: Props) {
+  return <HorizontalExample {...props} type="time" />;
+}
+HorizontalCentaines.args = {
+  domain: [Date.now(), Date.now() + 24 * 60 * 60 * 1000],
+};
 HorizontalCentaines.storyName = 'Horizontal centaines';
 export function HorizontalCentainesBottom() {
   return (
