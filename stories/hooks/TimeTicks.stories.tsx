@@ -1,10 +1,6 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
-import {
-  AutomaticHorizontalAxis,
-  AutomaticVerticalAxis,
-} from './StoryExamples';
+import { AutomaticHorizontalAxis, AutomaticVerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -16,15 +12,13 @@ interface Props {
 
 export default {
   title: 'Hooks/useTimeTicks',
+  component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,
     minValue: new Date(2002, 18, 1, 16),
     maxValue: new Date(2002, 18, 1, 17),
     speedAnimation: 0.75,
-  },
-  parameters: {
-    docs: { inlineStories: true },
   },
 } as Meta;
 

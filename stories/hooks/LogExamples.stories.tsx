@@ -1,10 +1,10 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
-import { HorizontalExample, VerticalExample } from './StoryExamples';
+import { HorizontalExample, VerticalExample } from './TestAxis';
 
 export default {
   title: 'Hooks/static/useLogTicks',
+  component: HorizontalExample || VerticalExample,
 } as Meta;
 
 interface Props {

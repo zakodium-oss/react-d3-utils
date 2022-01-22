@@ -1,10 +1,6 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
-import {
-  AutomaticHorizontalAxis,
-  AutomaticVerticalAxis,
-} from './StoryExamples';
+import { AutomaticHorizontalAxis, AutomaticVerticalAxis } from './TestAxis';
 
 interface Props {
   minSize: number;
@@ -17,6 +13,7 @@ interface Props {
 
 export default {
   title: 'Hooks/useLinearPrimaryTicks',
+  component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,
@@ -24,9 +21,6 @@ export default {
     maxValue: 100,
     speedAnimation: 0.75,
     scientificNotation: false,
-  },
-  parameters: {
-    docs: { inlineStories: true },
   },
 } as Meta;
 
