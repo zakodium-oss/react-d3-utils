@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 import { useTicks } from './useTick';
 
@@ -24,13 +24,13 @@ export function useLinearPrimaryTicks<
   ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},
 ): PrimaryLinearTicks[] {
-  const { tickFormat = (x) => String(x) } = options;
-  options.tickFormat = tickFormat;
-  const ticks = useTicks<number, ScaleContinuousNumeric<number, number>>(
+  const [ticks, setTicks] = useState<number[]>([]);
+  const { tickFormat = String } = options;
+  useTicks<number, ScaleContinuousNumeric<number, number>>(
     scale,
     direction,
     ref,
-    { ...options, tickFormat },
+    { ...options, tickFormat, setTicks },
   );
   return ticks.map((value) => ({
     label: tickFormat(value),

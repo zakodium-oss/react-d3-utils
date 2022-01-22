@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric, ScaleTime } from 'd3-scale';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 
 import { textDimensions } from '../utils';
 
@@ -13,6 +13,7 @@ export interface Ticks<T> {
 
 interface Options<T> {
   tickFormat: (d: T) => string;
+  setTicks: Dispatch<SetStateAction<T[]>>;
   minSpace?: number;
 }
 const TEST_HEIGHT = '+1234567890';
@@ -27,15 +28,13 @@ export function useTicks<
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options<T>,
-): T[] {
-  const [ticks, setTicks] = useState<T[]>([]);
-
+) {
   const range = scale.range();
   if (!range) throw new Error('Range needs to be specified');
 
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
-  const { minSpace = 8, tickFormat } = options;
+  const { minSpace = 8, tickFormat, setTicks } = options;
   const axisLength = Math.abs(range[0] - range[1]);
 
   // Calculates the tick number that fits in the given space
@@ -62,8 +61,6 @@ export function useTicks<
             break;
           }
         }
-
-        setTicks(ticks);
       } else {
         const { height } = textDimensions(TEST_HEIGHT, ref);
         while (true) {
@@ -81,10 +78,9 @@ export function useTicks<
             break;
           }
         }
-
-        setTicks(ticks);
       }
+
+      setTicks(ticks);
     }
-  }, [axisLength, direction, minSpace, ref, scale, tickFormat]);
-  return ticks;
+  }, [axisLength, direction, minSpace, ref, scale, setTicks, tickFormat]);
 }

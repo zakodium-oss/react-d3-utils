@@ -1,5 +1,5 @@
 import type { ScaleTime } from 'd3-scale';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 import { useTicks } from './useTick';
 
@@ -23,13 +23,12 @@ export function useTimeTicks<Scale extends ScaleTime<number, number>>(
   options: Options,
 ): TimeTicks[] {
   const { tickFormat = scale.tickFormat() } = options;
-
-  const ticks = useTicks<Date, ScaleTime<number, number>>(
-    scale,
-    direction,
-    ref,
-    { ...options, tickFormat },
-  );
+  const [ticks, setTicks] = useState<Date[]>([]);
+  useTicks<Date, ScaleTime<number, number>>(scale, direction, ref, {
+    ...options,
+    setTicks,
+    tickFormat,
+  });
   return ticks.map((value) => ({
     label: tickFormat(value),
     position: scale(value),
