@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/zakodium/react-d3-utils/compare/v0.3.0...v0.4.0) (2022-01-24)
+
+
+### Features
+
+* add 'none' option to AlignGroup ([#18](https://www.github.com/zakodium/react-d3-utils/issues/18)) ([0d7abad](https://www.github.com/zakodium/react-d3-utils/commit/0d7abade6780837feaf290519aa84229cb54a249))
+* add useTimeTicks hook ([#19](https://www.github.com/zakodium/react-d3-utils/issues/19)) ([c71733c](https://www.github.com/zakodium/react-d3-utils/commit/c71733c1051fd407b42bc8ba205eaefd5e24133a))
+
 ## [0.3.0](https://www.github.com/zakodium/react-d3-utils/compare/v0.2.0...v0.3.0) (2021-03-26)
 
 
