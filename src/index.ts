@@ -4,3 +4,4 @@ export * from './components/ResponsiveChart';
 export * from './hooks/useBBoxObserver';
 export * from './hooks/useLinearPrimaryTicks';
 export * from './hooks/useLogTicks';
+export * from './hooks/useTimeTicks';

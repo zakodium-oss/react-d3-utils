@@ -5,31 +5,29 @@ import { AutomaticHorizontalAxis, AutomaticVerticalAxis } from './TestAxis';
 interface Props {
   minSize: number;
   maxSize: number;
-  minValue: number;
-  maxValue: number;
+  minValue: number | Date;
+  maxValue: number | Date;
   speedAnimation: number;
-  scientificNotation: boolean;
 }
 
 export default {
-  title: 'Hooks/useLinearPrimaryTicks',
+  title: 'Hooks/useTimeTicks',
   component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,
-    minValue: 0,
-    maxValue: 100,
+    minValue: new Date(2002, 18, 1, 16),
+    maxValue: new Date(2002, 18, 1, 17),
     speedAnimation: 0.75,
-    scientificNotation: false,
   },
 } as Meta;
 
 export function HorizontalAxis(props: Props) {
-  return <AutomaticHorizontalAxis {...props} type="linear" />;
+  return <AutomaticHorizontalAxis {...props} type="time" />;
 }
 HorizontalAxis.storyName = 'Automatic horizontal axis';
 
 export function VerticalAxis(props: Props) {
-  return <AutomaticVerticalAxis {...props} type="linear" />;
+  return <AutomaticVerticalAxis {...props} type="time" />;
 }
 VerticalAxis.storyName = 'Automatic vertical axis';
