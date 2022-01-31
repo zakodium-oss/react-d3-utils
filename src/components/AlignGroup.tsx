@@ -1,4 +1,4 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo, ReactNode, CSSProperties } from 'react';
 
 import { useBBoxObserver } from '../hooks/useBBoxObserver';
 
@@ -7,6 +7,7 @@ export type Align = 'start' | 'middle' | 'end' | 'none';
 export interface AlignGroupProps {
   x?: number;
   y?: number;
+  style?: CSSProperties;
   verticalAlign?: Align;
   horizontalAlign?: Align;
   children: ReactNode | ReactNode[];
@@ -44,6 +45,7 @@ export function AlignGroup(props: AlignGroupProps) {
     verticalAlign = 'start',
     horizontalAlign = 'start',
     children,
+    style = {},
   } = props;
 
   const observed = useBBoxObserver();
@@ -65,7 +67,11 @@ export function AlignGroup(props: AlignGroupProps) {
   );
 
   return (
-    <g ref={observed.ref} transform={`translate(${xPosition}, ${yPosition})`}>
+    <g
+      style={style}
+      ref={observed.ref}
+      transform={`translate(${xPosition}, ${yPosition})`}
+    >
       {children}
     </g>
   );

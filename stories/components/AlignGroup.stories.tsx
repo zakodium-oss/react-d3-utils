@@ -33,6 +33,7 @@ Control.args = {
   y: 100,
   verticalAlign: 'start',
   horizontalAlign: 'start',
+  style: { fontSize: '20px' },
 };
 
 function VariableText() {
