@@ -1,23 +1,19 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo, ReactNode, CSSProperties } from 'react';
 
 import { useBBoxObserver } from '../hooks/useBBoxObserver';
 
-export type Align = 'start' | 'middle' | 'end' | 'none';
+export type Align = 'start' | 'middle' | 'end';
 
 export interface AlignGroupProps {
   x?: number;
   y?: number;
+  style?: CSSProperties;
   verticalAlign?: Align;
   horizontalAlign?: Align;
   children: ReactNode | ReactNode[];
 }
 
-function calculatePosition(
-  start: number,
-  align: Align,
-  space: number,
-  value: number,
-) {
+function calculatePosition(start: number, align: Align, space: number) {
   switch (align) {
     case 'start': {
       return start;
@@ -27,9 +23,6 @@ function calculatePosition(
     }
     case 'middle': {
       return start - space / 2;
-    }
-    case 'none': {
-      return value;
     }
     default: {
       throw new Error(`Unkwnown alignment ${JSON.stringify(align)}`);
@@ -44,28 +37,28 @@ export function AlignGroup(props: AlignGroupProps) {
     verticalAlign = 'start',
     horizontalAlign = 'start',
     children,
+    style = {},
   } = props;
 
   const observed = useBBoxObserver();
 
   const xPosition = useMemo(
     () =>
-      calculatePosition(
-        x - observed.x,
-        horizontalAlign,
-        observed.width || 0,
-        x,
-      ),
-    [x, observed.x, observed.width, horizontalAlign],
+      calculatePosition(x - observed.x, horizontalAlign, observed.width || 0),
+    [x, horizontalAlign, observed.x, observed.width],
   );
   const yPosition = useMemo(
     () =>
-      calculatePosition(y - observed.y, verticalAlign, observed.height || 0, y),
-    [y, observed.y, observed.height, verticalAlign],
+      calculatePosition(y - observed.y, verticalAlign, observed.height || 0),
+    [y, verticalAlign, observed.y, observed.height],
   );
 
   return (
-    <g ref={observed.ref} transform={`translate(${xPosition}, ${yPosition})`}>
+    <g
+      style={style}
+      ref={observed.ref}
+      transform={`translate(${xPosition}, ${yPosition})`}
+    >
       {children}
     </g>
   );
