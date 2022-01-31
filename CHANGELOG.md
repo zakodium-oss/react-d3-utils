@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://www.github.com/zakodium/react-d3-utils/compare/v0.4.0...v0.5.0) (2022-01-31)
+
+
+### Features
+
+* add style prop to AlignGroup  ([#21](https://www.github.com/zakodium/react-d3-utils/issues/21)) ([553369e](https://www.github.com/zakodium/react-d3-utils/commit/553369ee205011d320452f8d74656a90a1769a2c))
+
 ## [0.4.0](https://www.github.com/zakodium/react-d3-utils/compare/v0.3.0...v0.4.0) (2022-01-24)
 
 
