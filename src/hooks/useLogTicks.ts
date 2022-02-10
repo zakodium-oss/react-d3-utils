@@ -20,6 +20,7 @@ export interface PrimaryLogTicks {
 interface Options {
   tickFormat?: (d: number) => string;
   minSpace?: number;
+  onlyMain?: boolean;
 }
 
 const TEST_HEIGHT = '+1234567890';
@@ -35,13 +36,25 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   format: (d: number) => string,
   maxWordSpace: number,
   minSpace: number,
+  onlyMain: boolean,
 ): PrimaryLogTicks[] {
-  const scaledTicks = ticks.filter((val) => isMainTick(val) === 1).map(scale);
+  const mainTicks = ticks.filter((val) => isMainTick(val) === 1);
+  const scaledTicks = mainTicks.map(scale);
   const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
   const mainTickRatio = (maxWordSpace + minSpace) / mainTickSpace;
   const mainTicksStep = mainTickRatio >= 1 ? Math.ceil(mainTickRatio) : 1;
+  if (onlyMain) {
+    return mainTicks
+      .filter((val, i) => i % mainTicksStep === 0)
+      .map((value) => {
+        const position = scale(value);
+        let label = format(value);
+        return { label, position, value };
+      });
+  }
 
   let mainTickCounter = 0;
+
   return ticks.map((value) => {
     const position = scale(value);
     let label = '';
@@ -54,7 +67,7 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
 }
 
 export function useLogTicks<
-  Scale extends ScaleContinuousNumeric<number, number>
+  Scale extends ScaleContinuousNumeric<number, number>,
 >(
   scale: Scale,
   direction: Directions,
@@ -69,7 +82,7 @@ export function useLogTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const { minSpace = 8 } = options;
+  const { minSpace = 8, onlyMain = false } = options;
   const format = options?.tickFormat;
   const tickFormat = useCallback(
     (x: number) => (format ? format(x) : String(x)),
@@ -95,5 +108,5 @@ export function useLogTicks<
   }, [direction, domain, tickFormat, ref, ticks]);
 
   // Calculates the first paint density
-  return formatTicks(ticks, scale, tickFormat, maxStrSize, minSpace);
+  return formatTicks(ticks, scale, tickFormat, maxStrSize, minSpace, onlyMain);
 }
