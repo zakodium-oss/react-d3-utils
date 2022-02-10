@@ -20,7 +20,7 @@ export interface PrimaryLogTicks {
 interface Options {
   tickFormat?: (d: number) => string;
   minSpace?: number;
-  onlyMain?: boolean;
+  onlyMainTicks?: boolean;
 }
 
 const TEST_HEIGHT = '+1234567890';
@@ -36,14 +36,14 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   format: (d: number) => string,
   maxWordSpace: number,
   minSpace: number,
-  onlyMain: boolean,
+  onlyMainTicks: boolean,
 ): PrimaryLogTicks[] {
   const mainTicks = ticks.filter((val) => isMainTick(val) === 1);
   const scaledTicks = mainTicks.map(scale);
   const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
   const mainTickRatio = (maxWordSpace + minSpace) / mainTickSpace;
   const mainTicksStep = mainTickRatio >= 1 ? Math.ceil(mainTickRatio) : 1;
-  if (onlyMain) {
+  if (onlyMainTicks) {
     return mainTicks
       .filter((val, i) => i % mainTicksStep === 0)
       .map((value) => {
@@ -82,7 +82,7 @@ export function useLogTicks<
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');
 
-  const { minSpace = 8, onlyMain = false } = options;
+  const { minSpace = 8, onlyMainTicks = false } = options;
   const format = options?.tickFormat;
   const tickFormat = useCallback(
     (x: number) => (format ? format(x) : String(x)),
@@ -108,5 +108,12 @@ export function useLogTicks<
   }, [direction, domain, tickFormat, ref, ticks]);
 
   // Calculates the first paint density
-  return formatTicks(ticks, scale, tickFormat, maxStrSize, minSpace, onlyMain);
+  return formatTicks(
+    ticks,
+    scale,
+    tickFormat,
+    maxStrSize,
+    minSpace,
+    onlyMainTicks,
+  );
 }

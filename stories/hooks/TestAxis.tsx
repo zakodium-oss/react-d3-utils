@@ -17,7 +17,7 @@ interface BaseAxis {
 interface ScaleAxis<T> {
   scale: T;
   scientificNotation?: boolean;
-  onlyMain?: boolean;
+  onlyMainTicks?: boolean;
 }
 interface TickAxis {
   ticks: Ticks[];
@@ -153,7 +153,7 @@ function LogHorizontalAxis(
     scale,
     scientificNotation,
     orientation = 'top',
-    onlyMain = false,
+    onlyMainTicks = false,
     ...other
   } = props;
   const ref = useRef<SVGGElement>(null);
@@ -163,7 +163,7 @@ function LogHorizontalAxis(
   );
   const ticks = useLogTicks(scale, 'horizontal', ref, {
     tickFormat,
-    onlyMain,
+    onlyMainTicks,
   });
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
@@ -289,7 +289,7 @@ function LogVerticalAxis(
     scale,
     scientificNotation,
     orientation = 'left',
-    onlyMain = false,
+    onlyMainTicks = false,
     ...other
   } = props;
   const ref = useRef<SVGGElement>(null);
@@ -297,7 +297,10 @@ function LogVerticalAxis(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
-  const ticks = useLogTicks(scale, 'vertical', ref, { tickFormat, onlyMain });
+  const ticks = useLogTicks(scale, 'vertical', ref, {
+    tickFormat,
+    onlyMainTicks,
+  });
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }
@@ -326,7 +329,7 @@ interface ExampleProps {
   domain: [number | Date, number | Date];
   type: 'linear' | 'log' | 'time';
   scientificNotation?: boolean;
-  onlyMain?: boolean;
+  onlyMainTicks?: boolean;
 }
 interface VerticalOrientation {
   orientation?: 'left' | 'right';
@@ -338,7 +341,7 @@ interface HorizontalOrientation {
 export function HorizontalExample({
   domain,
   scientificNotation = false,
-  onlyMain = false,
+  onlyMainTicks = false,
   orientation,
   type,
 }: ExampleProps & HorizontalOrientation) {
@@ -375,7 +378,7 @@ export function HorizontalExample({
             y={width - 40}
             scale={scale}
             scientificNotation={scientificNotation}
-            onlyMain={onlyMain}
+            onlyMainTicks={onlyMainTicks}
             width={width}
             type={type}
           />
@@ -389,7 +392,7 @@ export function VerticalExample({
   scientificNotation,
   orientation,
   type,
-  onlyMain,
+  onlyMainTicks,
 }: ExampleProps & VerticalOrientation) {
   const [state, setState] = useState<VerticalState[]>([]);
   const scaleType = useMemo(() => {
@@ -424,7 +427,7 @@ export function VerticalExample({
             y={10}
             scale={scale}
             scientificNotation={scientificNotation}
-            onlyMain={onlyMain}
+            onlyMainTicks={onlyMainTicks}
             height={height}
             type={type}
           />
@@ -442,7 +445,7 @@ interface Props {
   speedAnimation: number;
   type: 'linear' | 'log' | 'time';
   scientificNotation?: boolean;
-  onlyMain?: boolean;
+  onlyMainTicks?: boolean;
 }
 export function AutomaticHorizontalAxis({
   minSize,
@@ -451,7 +454,7 @@ export function AutomaticHorizontalAxis({
   maxValue,
   speedAnimation,
   scientificNotation = false,
-  onlyMain = false,
+  onlyMainTicks = false,
   type,
 }: Props) {
   const [width, setWidth] = useState(minSize);
@@ -492,7 +495,7 @@ export function AutomaticHorizontalAxis({
           scale={scale}
           width={width}
           scientificNotation={scientificNotation}
-          onlyMain={onlyMain}
+          onlyMainTicks={onlyMainTicks}
           type={type}
         />
       </svg>
@@ -507,7 +510,7 @@ export function AutomaticVerticalAxis({
   maxValue,
   speedAnimation,
   scientificNotation,
-  onlyMain = false,
+  onlyMainTicks = false,
   type,
 }: Props) {
   const [height, setHeight] = useState(minSize);
@@ -550,7 +553,7 @@ export function AutomaticVerticalAxis({
           scale={scale}
           height={height}
           scientificNotation={scientificNotation}
-          onlyMain={onlyMain}
+          onlyMainTicks={onlyMainTicks}
           type={type}
         />
       </svg>

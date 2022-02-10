@@ -19,6 +19,7 @@ export default {
     minValue: 10,
     maxValue: 10000,
     speedAnimation: 0.75,
+    onlyMainTicks: false,
     scientificNotation: false,
   },
 } as Meta;

@@ -16,7 +16,7 @@ export function HorizontalCentaines(props: Props) {
 HorizontalCentaines.args = {
   domain: [10, 100000],
   scientificNotation: false,
-  onlyMain: false,
+  onlyMainTicks: false,
 };
 HorizontalCentaines.storyName = 'Horizontal positive powers';
 
