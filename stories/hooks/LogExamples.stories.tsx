@@ -4,7 +4,6 @@ import { HorizontalExample, VerticalExample } from './TestAxis';
 
 export default {
   title: 'Hooks/static/useLogTicks',
-  component: HorizontalExample || VerticalExample,
 } as Meta;
 
 interface Props {
@@ -17,6 +16,7 @@ export function HorizontalCentaines(props: Props) {
 HorizontalCentaines.args = {
   domain: [10, 100000],
   scientificNotation: false,
+  onlyMain: false,
 };
 HorizontalCentaines.storyName = 'Horizontal positive powers';
 
