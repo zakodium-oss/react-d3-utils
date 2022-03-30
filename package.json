@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zakodium/react-d3-utils.git"
+    "url": "git+https://github.com/zakodium-oss/react-d3-utils.git"
   },
   "author": "Michael Zasso",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zakodium/react-d3-utils/issues"
+    "url": "https://github.com/zakodium-oss/react-d3-utils/issues"
   },
-  "homepage": "https://github.com/zakodium/react-d3-utils#readme",
+  "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
   "devDependencies": {
     "@babel/core": "^7.16.10",
     "@simbathesailor/use-what-changed": "^2.0.0",
