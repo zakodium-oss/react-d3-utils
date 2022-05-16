@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.5.1](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.5.0...v0.5.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* update dependencies ([1463535](https://www.github.com/zakodium-oss/react-d3-utils/commit/14635355177c2e3465e2b386fcd8c43f96d5b988))
+
 ## [0.5.0](https://www.github.com/zakodium/react-d3-utils/compare/v0.4.0...v0.5.0) (2022-01-31)
 
 
