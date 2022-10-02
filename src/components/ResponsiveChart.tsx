@@ -12,15 +12,8 @@ export interface ResponsiveChartProps {
 }
 
 export function ResponsiveChart(props: ResponsiveChartProps) {
-  const {
-    width,
-    height,
-    minWidth,
-    minHeight,
-    maxWidth,
-    maxHeight,
-    children,
-  } = props;
+  const { width, height, minWidth, minHeight, maxWidth, maxHeight, children } =
+    props;
 
   const observed = useResizeObserver<HTMLDivElement>();
 
@@ -33,8 +26,8 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
         height: height || '100%',
         minWidth: minWidth || 0,
         minHeight: minHeight || 0,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight,
+        maxWidth,
+        maxHeight,
       }}
     >
       {observed.width && observed.height
