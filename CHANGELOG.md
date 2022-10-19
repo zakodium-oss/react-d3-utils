@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.5.1...v0.6.0) (2022-10-19)
+
+
+### Features
+
+* update ResponsiveChart props types ([8b10c3a](https://www.github.com/zakodium-oss/react-d3-utils/commit/8b10c3aa7cd9e489d9aff1c2bc21df4a3e36f3dd))
+
 ### [0.5.1](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.5.0...v0.5.1) (2022-05-16)
 
 
