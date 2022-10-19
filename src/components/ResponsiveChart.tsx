@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import useResizeObserver from 'use-resize-observer';
 
 export interface ResponsiveChartProps {
-  width?: number;
-  height?: number;
-  minWidth?: number;
-  minHeight?: number;
-  maxWidth?: number;
-  maxHeight?: number;
+  width?: number | `${number}%`;
+  height?: number | `${number}%`;
+  minWidth?: number | `${number}%`;
+  minHeight?: number | `${number}%`;
+  maxWidth?: number | `${number}%`;
+  maxHeight?: number | `${number}%`;
   children: (size: { width: number; height: number }) => ReactNode;
 }
 
