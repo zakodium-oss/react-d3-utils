@@ -23,15 +23,11 @@ export function useTimeTicks<Scale extends ScaleTime<number, number>>(
   options: Options,
 ): TimeTicks[] {
   const { tickFormat = scale.tickFormat() } = options;
-  const [ticks, setTicks] = useState<Date[]>([]);
+  const [ticks, setTicks] = useState<TimeTicks[]>([]);
   useTicks<Date, ScaleTime<number, number>>(scale, direction, ref, {
     ...options,
     setTicks,
     tickFormat,
   });
-  return ticks.map((value) => ({
-    label: tickFormat(value),
-    position: scale(value),
-    value,
-  }));
+  return ticks;
 }

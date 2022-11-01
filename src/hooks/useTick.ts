@@ -13,7 +13,9 @@ export interface Ticks<T> {
 
 interface Options<T> {
   tickFormat: (d: T) => string;
-  setTicks: Dispatch<SetStateAction<T[]>>;
+  setTicks: Dispatch<
+    SetStateAction<Array<{ label: string; position: number; value: T }>>
+  >;
   minSpace?: number;
 }
 const TEST_HEIGHT = '+1234567890';
@@ -80,7 +82,13 @@ export function useTicks<
         }
       }
 
-      setTicks(ticks);
+      setTicks(
+        ticks.map((value) => ({
+          label: tickFormat(value),
+          position: scale(value),
+          value,
+        })),
+      );
     }
   }, [axisLength, direction, minSpace, ref, scale, setTicks, tickFormat]);
 }

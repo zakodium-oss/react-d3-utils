@@ -24,7 +24,7 @@ export function useLinearPrimaryTicks<
   ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},
 ): PrimaryLinearTicks[] {
-  const [ticks, setTicks] = useState<number[]>([]);
+  const [ticks, setTicks] = useState<PrimaryLinearTicks[]>([]);
   const { tickFormat = String } = options;
   useTicks<number, ScaleContinuousNumeric<number, number>>(
     scale,
@@ -32,9 +32,5 @@ export function useLinearPrimaryTicks<
     ref,
     { ...options, tickFormat, setTicks },
   );
-  return ticks.map((value) => ({
-    label: tickFormat(value),
-    position: scale(value),
-    value,
-  }));
+  return ticks;
 }

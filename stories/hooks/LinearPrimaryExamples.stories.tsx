@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import { useState } from 'react';
 
 import { HorizontalExample, VerticalExample } from './TestAxis';
 
@@ -55,6 +56,25 @@ export function HorizontalScientificDecimals() {
   );
 }
 HorizontalScientificDecimals.storyName = 'Horizontal scientific decimals';
+
+export function HorizontalToggleDomain() {
+  const domain1 = [-1, 1] as const;
+  const domain2 = [0, 0] as const;
+  const [which, setWhich] = useState(1);
+
+  return (
+    <div>
+      <HorizontalExample
+        domain={which === 1 ? domain1 : domain2}
+        type="linear"
+      />
+      <button type="button" onClick={() => setWhich((w) => (w === 1 ? 2 : 1))}>
+        Toggle domain
+      </button>
+    </div>
+  );
+}
+HorizontalToggleDomain.storyName = 'Horizontal toggle domain';
 
 export function VerticalCentaines() {
   return (

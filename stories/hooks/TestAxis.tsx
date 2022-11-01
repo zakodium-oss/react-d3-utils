@@ -52,7 +52,7 @@ const HorizontalAxisTop = forwardRef<SVGGElement | null, HorizontalRenderProps>(
     <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line x2={width} y1={15} y2={15} stroke="black" />
       {ticks.map(({ label, position }) => (
-        <g key={`${label}${position}`}>
+        <g key={position}>
           <line x1={position} x2={position} y1={10} y2={15} stroke="black" />
           <text x={position} dominantBaseline="middle" textAnchor="middle">
             {label}
@@ -69,7 +69,7 @@ const HorizontalAxisBottom = forwardRef<
   <g ref={ref} transform={`translate(${x}, ${y})`}>
     <line x2={width} y1={-15} y2={-15} stroke="black" />
     {ticks.map(({ label, position }) => (
-      <g key={`${label}${position}`}>
+      <g key={position}>
         <line x1={position} x2={position} y1={-10} y2={-15} stroke="black" />
         <text x={position} dominantBaseline="middle" textAnchor="middle">
           {label}
@@ -169,7 +169,7 @@ const VerticalAxisLeft = forwardRef<SVGGElement | null, VerticalRenderProps>(
     <g ref={ref} transform={`translate(${x}, ${y})`}>
       <line y2={height} x1={15} x2={15} stroke="black" />
       {ticks.map(({ label, position }) => (
-        <g key={`${label}${position}`}>
+        <g key={position}>
           <line y1={position} y2={position} x1={10} x2={15} stroke="black" />
           <text y={position} dominantBaseline="middle" textAnchor="end">
             {label}
@@ -185,7 +185,7 @@ const VerticalAxisRight = forwardRef<SVGGElement | null, VerticalRenderProps>(
       <line y2={height} x1={-15} x2={-15} stroke="black" />
       {ticks.map(({ label, position }) => {
         return (
-          <g key={`${label}${position}`}>
+          <g key={position}>
             <line
               y1={position}
               y2={position}
@@ -307,7 +307,7 @@ interface VerticalState {
   height: number;
 }
 interface ExampleProps {
-  domain: [number | Date, number | Date];
+  domain: readonly [number | Date, number | Date];
   type: 'linear' | 'log' | 'time';
   scientificNotation?: boolean;
 }
