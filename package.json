@@ -34,21 +34,24 @@
   },
   "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
   "devDependencies": {
-    "@babel/core": "^7.19.3",
+    "@babel/core": "^7.19.6",
     "@simbathesailor/use-what-changed": "^2.0.0",
-    "@storybook/addon-actions": "^6.5.12",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/addon-storysource": "^6.5.12",
-    "@storybook/react": "^6.5.12",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/addon-storysource": "^6.5.13",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/react": "^6.5.13",
     "@types/react": "^17.0.38",
     "@zakodium/eslint-config": "^6.0.0",
-    "babel-loader": "^8.2.5",
-    "eslint": "^8.24.0",
+    "babel-loader": "^9.0.1",
+    "eslint": "^8.26.0",
     "prettier": "^2.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.2",
@@ -56,6 +59,6 @@
     "use-resize-observer": "^9.0.2"
   },
   "volta": {
-    "node": "16.15.0"
+    "node": "16.18.0"
   }
 }
