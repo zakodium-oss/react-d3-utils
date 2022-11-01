@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.1](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.6.0...v0.6.1) (2022-11-01)
+
+
+### Bug Fixes
+
+* generate ticks with the correct domain ([745edc1](https://www.github.com/zakodium-oss/react-d3-utils/commit/745edc13d7f5ba5b83e1fe40b692fb067f3c7bf0))
+
 ## [0.6.0](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.5.1...v0.6.0) (2022-10-19)
 
 
