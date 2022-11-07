@@ -1,7 +1,7 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
 import { MutableRefObject, useState } from 'react';
 
-import { useTicks } from './useTick';
+import { useTicks } from './useTick.js';
 
 type Directions = 'horizontal' | 'vertical';
 
