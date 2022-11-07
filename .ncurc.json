@@ -1,8 +1,0 @@
-{
-  "dep": "prod,dev",
-  "reject": [
-    "@types/react",
-    "react",
-    "react-dom"
-  ]
-}
