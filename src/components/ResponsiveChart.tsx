@@ -15,6 +15,8 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
   const { width, height, minWidth, minHeight, maxWidth, maxHeight, children } =
     props;
 
+  // @ts-expect-error use-resize-observer types are wrong
+  // See https://github.com/microsoft/TypeScript/issues/49189
   const observed = useResizeObserver<HTMLDivElement>();
 
   return (

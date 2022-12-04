@@ -1,7 +1,7 @@
-export * from './components/AlignGroup';
-export * from './components/ResponsiveChart';
+export * from './components/AlignGroup.js';
+export * from './components/ResponsiveChart.js';
 
-export * from './hooks/useBBoxObserver';
-export * from './hooks/useLinearPrimaryTicks';
-export * from './hooks/useLogTicks';
-export * from './hooks/useTimeTicks';
+export * from './hooks/useBBoxObserver.js';
+export * from './hooks/useLinearPrimaryTicks.js';
+export * from './hooks/useLogTicks.js';
+export * from './hooks/useTimeTicks.js';

@@ -1,7 +1,7 @@
 import type { ScaleContinuousNumeric, ScaleTime } from 'd3-scale';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 
-import { textDimensions } from '../utils';
+import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 

@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 
-import { textDimensions } from '../utils';
+import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -54,7 +54,7 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
 }
 
 export function useLogTicks<
-  Scale extends ScaleContinuousNumeric<number, number>
+  Scale extends ScaleContinuousNumeric<number, number>,
 >(
   scale: Scale,
   direction: Directions,

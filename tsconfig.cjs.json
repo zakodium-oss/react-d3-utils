@@ -1,4 +1,7 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": ["**/__tests__", "stories"]
+  "extends": "./tsconfig.esm.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "module": "CommonJS"
+  }
 }
