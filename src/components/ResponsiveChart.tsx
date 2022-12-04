@@ -21,6 +21,7 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
     <div
       ref={observed.ref}
       style={{
+        position: 'relative',
         flex: 1,
         width: width || '100%',
         height: height || '100%',
@@ -30,9 +31,13 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
         maxHeight,
       }}
     >
-      {observed.width && observed.height
-        ? children({ width: observed.width, height: observed.height })
-        : null}
+      <div
+        style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}
+      >
+        {observed.width && observed.height
+          ? children({ width: observed.width, height: observed.height })
+          : null}
+      </div>
     </div>
   );
 }
