@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.6.1...v1.0.0) (2022-12-04)
+
+
+### Bug Fixes
+
+* prevent responsive chart from affecting the size of its parents ([#32](https://www.github.com/zakodium-oss/react-d3-utils/issues/32)) ([80bcf52](https://www.github.com/zakodium-oss/react-d3-utils/commit/80bcf52969c6a19538b402547f15950dfc91c688))
+
 ### [0.6.1](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.6.0...v0.6.1) (2022-11-01)
 
 
