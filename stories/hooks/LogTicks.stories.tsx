@@ -13,14 +13,13 @@ interface Props {
 
 export default {
   title: 'Hooks/useLogTicks',
-
-  component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,
     minValue: 10,
     maxValue: 10000,
     speedAnimation: 0.75,
+    onlyMainTicks: false,
     scientificNotation: false,
   },
 } as Meta;

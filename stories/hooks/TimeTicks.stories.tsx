@@ -12,7 +12,6 @@ interface Props {
 
 export default {
   title: 'Hooks/useTimeTicks',
-  component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,
