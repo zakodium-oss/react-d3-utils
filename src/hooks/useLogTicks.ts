@@ -54,7 +54,7 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
 }
 
 export function useLogTicks<
-  Scale extends ScaleContinuousNumeric<number, number>
+  Scale extends ScaleContinuousNumeric<number, number>,
 >(
   scale: Scale,
   direction: Directions,
