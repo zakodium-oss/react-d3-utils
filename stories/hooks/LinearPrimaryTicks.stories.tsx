@@ -13,7 +13,6 @@ interface Props {
 
 export default {
   title: 'Hooks/useLinearPrimaryTicks',
-  component: AutomaticVerticalAxis || AutomaticHorizontalAxis,
   args: {
     minSize: 50,
     maxSize: 500,

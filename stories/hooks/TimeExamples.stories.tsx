@@ -4,7 +4,6 @@ import { HorizontalExample, VerticalExample } from './TestAxis';
 
 export default {
   title: 'Hooks/static/useTimeTicks',
-  component: HorizontalExample || VerticalExample,
 } as Meta;
 
 interface Props {

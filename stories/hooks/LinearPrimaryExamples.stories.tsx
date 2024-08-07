@@ -5,7 +5,6 @@ import { HorizontalExample, VerticalExample } from './TestAxis';
 
 export default {
   title: 'Hooks/static/useLinearPrimaryTicks',
-  component: HorizontalExample || VerticalExample,
 } as Meta;
 interface Props {
   domain: [number, number];
