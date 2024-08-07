@@ -18,6 +18,8 @@
     "dev": "storybook dev -p 6006",
     "eslint": "eslint src stories",
     "eslint-fix": "npm run eslint -- --fix",
+    "prettier": "prettier --check .",
+    "prettier-write": "prettier --write .",
     "prepublishOnly": "npm run build",
     "start": "npm run dev",
     "test": "npm run eslint && npm run check-types"
