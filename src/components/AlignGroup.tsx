@@ -1,6 +1,6 @@
-import { useMemo, ReactNode, CSSProperties } from 'react';
+import { type CSSProperties, type ReactNode, useMemo } from 'react';
 
-import { useBBoxObserver } from '../hooks/useBBoxObserver';
+import { useBBoxObserver } from '../hooks/useBBoxObserver.js';
 
 export type Align = 'start' | 'middle' | 'end' | 'none';
 

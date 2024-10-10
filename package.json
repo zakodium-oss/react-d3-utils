@@ -2,27 +2,26 @@
   "name": "react-d3-utils",
   "version": "1.0.0",
   "description": "Low-level utilities to build charts with React and D3",
-  "main": "lib/index.js",
-  "module": "lib-esm/index.js",
-  "types": "lib-esm/index.d.ts",
+  "type": "module",
+  "exports": "./lib/index.js",
   "files": [
     "lib",
-    "lib-esm"
+    "src"
   ],
   "scripts": {
     "build": "npm run clean && npm run build-ts",
-    "build-ts": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "build-ts": "tsc -p tsconfig.build.json",
     "build-storybook": "storybook build",
     "check-types": "tsc --noEmit",
-    "clean": "rimraf lib lib-esm",
+    "clean": "rimraf lib",
     "dev": "storybook dev -p 6006",
     "eslint": "eslint src stories",
     "eslint-fix": "npm run eslint -- --fix",
+    "prepack": "npm run build",
     "prettier": "prettier --check .",
     "prettier-write": "prettier --write .",
-    "prepublishOnly": "npm run build",
     "start": "npm run dev",
-    "test": "npm run eslint && npm run check-types"
+    "test": "npm run eslint && npm run prettier && npm run check-types"
   },
   "repository": {
     "type": "git",
@@ -35,19 +34,19 @@
   },
   "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
   "devDependencies": {
-    "@simbathesailor/use-what-changed": "^2.0.0",
-    "@storybook/addon-essentials": "^8.2.8",
-    "@storybook/addon-links": "^8.2.8",
-    "@storybook/addon-storysource": "^8.2.8",
-    "@storybook/react": "^8.2.8",
-    "@storybook/react-vite": "^8.2.8",
-    "@types/react": "^18.3.3",
-    "@zakodium/eslint-config": "^6.0.0",
-    "eslint": "^8.27.0",
+    "@storybook/addon-essentials": "^8.3.5",
+    "@storybook/addon-links": "^8.3.5",
+    "@storybook/addon-storysource": "^8.3.5",
+    "@storybook/react": "^8.3.5",
+    "@storybook/react-vite": "^8.3.5",
+    "@types/react": "^18.3.11",
+    "eslint": "^9.12.0",
+    "eslint-config-zakodium": "^13.0.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "typescript": "^5.5.4"
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.8",
@@ -55,6 +54,6 @@
     "use-resize-observer": "^9.1.0"
   },
   "volta": {
-    "node": "20.16.0"
+    "node": "22.9.0"
   }
 }

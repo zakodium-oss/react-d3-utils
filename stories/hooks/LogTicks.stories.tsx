@@ -1,6 +1,6 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-import { AutomaticHorizontalAxis, AutomaticVerticalAxis } from './TestAxis';
+import { AutomaticHorizontalAxis, AutomaticVerticalAxis } from './TestAxis.js';
 
 interface Props {
   minSize: number;

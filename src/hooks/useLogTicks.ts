@@ -1,13 +1,13 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
 import {
-  MutableRefObject,
+  type MutableRefObject,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 
-import { textDimensions } from '../utils';
+import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -25,13 +25,13 @@ interface Options {
 const TEST_HEIGHT = '+1234567890';
 
 function isMainTick(value: number): number {
-  const index = value / Math.pow(10, Math.round(Math.log10(value)));
+  const index = value / 10 ** Math.round(Math.log10(value));
   return Math.floor(index < 1 ? index * 10 : index);
 }
 
-function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
+function formatTicks(
   ticks: number[],
-  scale: Scale,
+  scale: ScaleContinuousNumeric<number, number>,
   format: (d: number) => string,
   maxWordSpace: number,
   minSpace: number,
@@ -53,10 +53,8 @@ function formatTicks<Scale extends ScaleContinuousNumeric<number, number>>(
   });
 }
 
-export function useLogTicks<
-  Scale extends ScaleContinuousNumeric<number, number>,
->(
-  scale: Scale,
+export function useLogTicks(
+  scale: ScaleContinuousNumeric<number, number>,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options = {},

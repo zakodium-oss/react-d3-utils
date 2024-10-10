@@ -1,14 +1,18 @@
 import {
-  ScaleTime,
-  ScaleLinear,
+  type ScaleLinear,
   scaleLinear,
   scaleLog,
-  ScaleLogarithmic,
+  type ScaleLogarithmic,
+  type ScaleTime,
   scaleTime,
 } from 'd3-scale';
-import React, { forwardRef, useMemo, useRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
-import { useLinearPrimaryTicks, useLogTicks, useTimeTicks } from '../../src';
+import {
+  useLinearPrimaryTicks,
+  useLogTicks,
+  useTimeTicks,
+} from '../../src/index.js';
 
 interface BaseAxis {
   x: number;
@@ -338,7 +342,7 @@ export function HorizontalExample({
     }
   }, [domain, type]);
   useEffect(() => {
-    let state = [];
+    const state = [];
     for (let i = MIN; i <= MAX; i += 50) {
       const scale = scaleType(i);
       state.push({ scale, width: i });
@@ -385,7 +389,7 @@ export function VerticalExample({
     }
   }, [domain, type]);
   useEffect(() => {
-    let state = [];
+    const state = [];
     for (let i = MIN; i <= MAX; i += 50) {
       const scale = scaleType(i);
       state.push({ scale, height: i });
