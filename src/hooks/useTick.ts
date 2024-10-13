@@ -1,7 +1,12 @@
 import type { ScaleContinuousNumeric, ScaleTime } from 'd3-scale';
-import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
+import {
+  type Dispatch,
+  type MutableRefObject,
+  type SetStateAction,
+  useEffect,
+} from 'react';
 
-import { textDimensions } from '../utils';
+import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -20,13 +25,8 @@ interface Options<T> {
 }
 const TEST_HEIGHT = '+1234567890';
 
-export function useTicks<
-  T extends number | Date,
-  Scale extends
-    | ScaleContinuousNumeric<number, number>
-    | ScaleTime<number, number>,
->(
-  scale: Scale,
+export function useTicks<T extends number | Date>(
+  scale: ScaleContinuousNumeric<number, number> | ScaleTime<number, number>,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options<T>,

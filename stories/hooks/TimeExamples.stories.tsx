@@ -1,6 +1,6 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-import { HorizontalExample, VerticalExample } from './TestAxis';
+import { HorizontalExample, VerticalExample } from './TestAxis.js';
 
 export default {
   title: 'Hooks/static/useTimeTicks',

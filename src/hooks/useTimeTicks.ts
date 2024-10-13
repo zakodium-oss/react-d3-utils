@@ -1,7 +1,7 @@
 import type { ScaleTime } from 'd3-scale';
-import { MutableRefObject, useState } from 'react';
+import { type MutableRefObject, useState } from 'react';
 
-import { useTicks } from './useTick';
+import { useTicks } from './useTick.js';
 
 type Directions = 'horizontal' | 'vertical';
 
@@ -16,15 +16,15 @@ interface Options {
   minSpace?: number;
 }
 
-export function useTimeTicks<Scale extends ScaleTime<number, number>>(
-  scale: Scale,
+export function useTimeTicks(
+  scale: ScaleTime<number, number>,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options,
 ): TimeTicks[] {
   const { tickFormat = scale.tickFormat() } = options;
   const [ticks, setTicks] = useState<TimeTicks[]>([]);
-  useTicks<Date, ScaleTime<number, number>>(scale, direction, ref, {
+  useTicks<Date>(scale, direction, ref, {
     ...options,
     setTicks,
     tickFormat,

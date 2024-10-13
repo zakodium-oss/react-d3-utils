@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import useResizeObserver from 'use-resize-observer';
 
 export interface ResponsiveChartProps {
@@ -15,6 +15,7 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
   const { width, height, minWidth, minHeight, maxWidth, maxHeight, children } =
     props;
 
+  // @ts-expect-error Default import is correct.
   const observed = useResizeObserver<HTMLDivElement>();
 
   return (

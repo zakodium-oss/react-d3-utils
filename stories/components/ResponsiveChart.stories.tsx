@@ -1,7 +1,7 @@
-import { Meta } from '@storybook/react';
-import { ReactNode, useEffect, useState } from 'react';
+import type { Meta } from '@storybook/react';
+import { type ReactNode, useEffect, useState } from 'react';
 
-import { ResponsiveChart, ResponsiveChartProps } from '../../src';
+import { ResponsiveChart, type ResponsiveChartProps } from '../../src/index.js';
 
 export default {
   title: 'components/ResponsiveChart',
