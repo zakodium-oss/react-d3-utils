@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/zakodium-oss/react-d3-utils/compare/v1.0.0...v2.0.0) (2024-10-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* the module is now ESM-only
+
+### Features
+
+* make module native ESM ([85732fd](https://github.com/zakodium-oss/react-d3-utils/commit/85732fdf64eaa5bf83f10b3aaad76122e39b70b5))
+
 ## [1.0.0](https://www.github.com/zakodium-oss/react-d3-utils/compare/v0.6.1...v1.0.0) (2022-12-04)
 
 
