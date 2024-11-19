@@ -10,23 +10,39 @@ import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 
-export interface Ticks<T> {
+export interface Tick<T> {
+  /**
+   * The formatted label of the tick.
+   */
   label: string;
+  /**
+   * The position in pixel of the tick on the axis.
+   */
   position: number;
+  /*
+   * The untransformed value of the tick in its original format.
+   */
   value: T;
 }
 
-interface Options<T> {
+interface UseTicksResult<T extends number | Date> {
+  scale: T extends number
+    ? ScaleContinuousNumeric<number, number>
+    : ScaleTime<number, number>;
+  ticks: Array<Tick<T>>;
+}
+
+interface Options<T extends number | Date> {
   tickFormat: (d: T) => string;
-  setTicks: Dispatch<
-    SetStateAction<Array<{ label: string; position: number; value: T }>>
-  >;
+  setTicks: Dispatch<SetStateAction<UseTicksResult<T>>>;
   minSpace?: number;
 }
 const TEST_HEIGHT = '+1234567890';
 
 export function useTicks<T extends number | Date>(
-  scale: ScaleContinuousNumeric<number, number> | ScaleTime<number, number>,
+  scale: T extends number
+    ? ScaleContinuousNumeric<number, number>
+    : ScaleTime<number, number>,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options<T>,
@@ -82,13 +98,14 @@ export function useTicks<T extends number | Date>(
         }
       }
 
-      setTicks(
-        ticks.map((value) => ({
+      setTicks({
+        ticks: ticks.map((value) => ({
           label: tickFormat(value),
           position: scale(value),
           value,
         })),
-      );
+        scale,
+      });
     }
   }, [axisLength, direction, minSpace, ref, scale, setTicks, tickFormat]);
 }
