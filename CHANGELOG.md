@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/zakodium-oss/react-d3-utils/compare/v2.0.0...v3.0.0) (2024-11-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `useLinearPrimaryTicks` and `useTimeTicks` hooks now return the scale along with the ticks
+
+### Features
+
+* return the scale along with the ticks in hooks ([#40](https://github.com/zakodium-oss/react-d3-utils/issues/40)) ([ed19aa6](https://github.com/zakodium-oss/react-d3-utils/commit/ed19aa60fd44f3499c51ea0e1286054a40b7419f))
+
 ## [2.0.0](https://github.com/zakodium-oss/react-d3-utils/compare/v1.0.0...v2.0.0) (2024-10-14)
 
 
