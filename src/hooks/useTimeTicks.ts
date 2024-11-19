@@ -11,6 +11,11 @@ export interface TimeTicks {
   value: Date;
 }
 
+export interface UseTimeTicksResult {
+  scale: ScaleTime<number, number>;
+  ticks: TimeTicks[];
+}
+
 interface Options {
   tickFormat?: (d: Date) => string;
   minSpace?: number;
@@ -21,9 +26,12 @@ export function useTimeTicks(
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options,
-): TimeTicks[] {
+): UseTimeTicksResult {
   const { tickFormat = scale.tickFormat() } = options;
-  const [ticks, setTicks] = useState<TimeTicks[]>([]);
+  const [ticks, setTicks] = useState<UseTimeTicksResult>(() => ({
+    ticks: [],
+    scale,
+  }));
   useTicks<Date>(scale, direction, ref, {
     ...options,
     setTicks,

@@ -125,7 +125,9 @@ function LinearHorizontalAxis(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
-  const ticks = useLinearPrimaryTicks(scale, 'horizontal', ref, { tickFormat });
+  const { ticks } = useLinearPrimaryTicks(scale, 'horizontal', ref, {
+    tickFormat,
+  });
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
   }
@@ -139,7 +141,7 @@ function TimeHorizontalAxis(
 ) {
   const { scale, orientation = 'top', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useTimeTicks(scale, 'horizontal', ref, {});
+  const { ticks } = useTimeTicks(scale, 'horizontal', ref, {});
   if (orientation === 'top') {
     return <HorizontalAxisTop {...other} ticks={ticks} ref={ref} />;
   }
@@ -251,7 +253,9 @@ function LinearVerticalAxis(
     () => (scientificNotation ? toExponential : undefined),
     [scientificNotation],
   );
-  const ticks = useLinearPrimaryTicks(scale, 'vertical', ref, { tickFormat });
+  const { ticks } = useLinearPrimaryTicks(scale, 'vertical', ref, {
+    tickFormat,
+  });
 
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
@@ -266,7 +270,7 @@ function TimeVerticalAxis(
 ) {
   const { scale, orientation = 'left', ...other } = props;
   const ref = useRef<SVGGElement>(null);
-  const ticks = useTimeTicks(scale, 'vertical', ref, {});
+  const { ticks } = useTimeTicks(scale, 'vertical', ref, {});
   if (orientation === 'left') {
     return <VerticalAxisLeft {...other} ticks={ticks} ref={ref} />;
   }

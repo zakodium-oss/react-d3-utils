@@ -16,17 +16,24 @@ export interface Ticks<T> {
   value: T;
 }
 
-interface Options<T> {
+interface UseTicksResult<T extends number | Date> {
+  scale: T extends number
+    ? ScaleContinuousNumeric<number, number>
+    : ScaleTime<number, number>;
+  ticks: Array<Ticks<T>>;
+}
+
+interface Options<T extends number | Date> {
   tickFormat: (d: T) => string;
-  setTicks: Dispatch<
-    SetStateAction<Array<{ label: string; position: number; value: T }>>
-  >;
+  setTicks: Dispatch<SetStateAction<UseTicksResult<T>>>;
   minSpace?: number;
 }
 const TEST_HEIGHT = '+1234567890';
 
 export function useTicks<T extends number | Date>(
-  scale: ScaleContinuousNumeric<number, number> | ScaleTime<number, number>,
+  scale: T extends number
+    ? ScaleContinuousNumeric<number, number>
+    : ScaleTime<number, number>,
   direction: Directions,
   ref: MutableRefObject<SVGGElement | null>,
   options: Options<T>,
@@ -82,13 +89,14 @@ export function useTicks<T extends number | Date>(
         }
       }
 
-      setTicks(
-        ticks.map((value) => ({
+      setTicks({
+        ticks: ticks.map((value) => ({
           label: tickFormat(value),
           position: scale(value),
           value,
         })),
-      );
+        scale,
+      });
     }
   }, [axisLength, direction, minSpace, ref, scale, setTicks, tickFormat]);
 }

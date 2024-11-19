@@ -3,7 +3,7 @@ import {
   type PrimaryLinearTicks,
   useLinearPrimaryTicks,
 } from '../../src/index.js';
-import { scaleLinear, type ScaleLinear } from 'd3-scale';
+import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
 import type { Ticks } from '../../src/hooks/useTick.js';
 import React, { forwardRef, useRef, useState } from 'react';
 
@@ -19,10 +19,10 @@ const DOMAIN_SMALL = [50, 50.0001];
 export function AdvancedCustomTicks() {
   const ref = useRef<SVGGElement>(null);
   const [range, setRange] = useState(LARGE_RANGE);
-  const [domain, setDomain] = useState([0, 100]);
+  const [domain, setDomain] = useState(DOMAIN_LARGE);
   const scale = scaleLinear().range(range).domain(domain);
   const primaryTicks = useLinearPrimaryTicks(scale, 'horizontal', ref);
-  const ticks = computeLinearTicks(primaryTicks, scale);
+  const ticks = computeLinearTicks(primaryTicks.ticks, primaryTicks.scale);
 
   return (
     <div>
@@ -59,7 +59,7 @@ interface Tick extends Ticks<number> {
 
 function computeLinearTicks(
   primaryTicks: PrimaryLinearTicks[],
-  xAccessor: ScaleLinear<number, number>,
+  xAccessor: ScaleContinuousNumeric<number, number>,
   options: {
     noSecondaryTicks?: boolean;
     primaryTickSize?: number;
