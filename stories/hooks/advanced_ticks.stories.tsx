@@ -2,11 +2,8 @@ import type { Meta } from '@storybook/react';
 import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
 import React, { forwardRef, useRef, useState } from 'react';
 
-import type { Ticks } from '../../src/hooks/useTick.js';
-import {
-  type PrimaryLinearTicks,
-  useLinearPrimaryTicks,
-} from '../../src/index.js';
+import type { Tick } from '../../src/index.js';
+import { useLinearPrimaryTicks } from '../../src/index.js';
 
 export default {
   title: 'Hooks/Advanced Ticks',
@@ -54,21 +51,21 @@ export function AdvancedCustomTicks() {
   );
 }
 
-interface Tick extends Ticks<number> {
+interface AxisTick extends Tick<number> {
   size: number;
 }
 
 function computeLinearTicks(
-  primaryTicks: PrimaryLinearTicks[],
+  primaryTicks: Array<Tick<number>>,
   xAccessor: ScaleContinuousNumeric<number, number>,
   options: {
     noSecondaryTicks?: boolean;
     primaryTickSize?: number;
     secondaryTickSize?: number;
   } = {},
-): Tick[] {
+): AxisTick[] {
   const viewport = xAccessor.domain();
-  const ticks: Tick[] = [];
+  const ticks: AxisTick[] = [];
   const {
     noSecondaryTicks = false,
     primaryTickSize = 9,
@@ -132,7 +129,7 @@ interface HorizontalAxisProps {
   x: number;
   y: number;
   width: number;
-  ticks: Tick[];
+  ticks: AxisTick[];
 }
 
 const HorizontalAxis = forwardRef<SVGGElement | null, HorizontalAxisProps>(

@@ -10,9 +10,18 @@ import { textDimensions } from '../utils.js';
 
 type Directions = 'horizontal' | 'vertical';
 
-export interface Ticks<T> {
+export interface Tick<T> {
+  /**
+   * The formatted label of the tick.
+   */
   label: string;
+  /**
+   * The position in pixel of the tick on the axis.
+   */
   position: number;
+  /*
+   * The untransformed value of the tick in its original format.
+   */
   value: T;
 }
 
@@ -20,7 +29,7 @@ interface UseTicksResult<T extends number | Date> {
   scale: T extends number
     ? ScaleContinuousNumeric<number, number>
     : ScaleTime<number, number>;
-  ticks: Array<Ticks<T>>;
+  ticks: Array<Tick<T>>;
 }
 
 interface Options<T extends number | Date> {
