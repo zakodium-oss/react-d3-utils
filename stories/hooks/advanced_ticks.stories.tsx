@@ -1,11 +1,12 @@
 import type { Meta } from '@storybook/react';
+import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
+import React, { forwardRef, useRef, useState } from 'react';
+
+import type { Ticks } from '../../src/hooks/useTick.js';
 import {
   type PrimaryLinearTicks,
   useLinearPrimaryTicks,
 } from '../../src/index.js';
-import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
-import type { Ticks } from '../../src/hooks/useTick.js';
-import React, { forwardRef, useRef, useState } from 'react';
 
 export default {
   title: 'Hooks/Advanced Ticks',
