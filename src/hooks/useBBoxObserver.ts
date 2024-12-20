@@ -1,4 +1,5 @@
-import { type RefCallback, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import type { RefCallback } from 'react';
 
 const initialSize = { x: 0, y: 0, width: 0, height: 0 };
 

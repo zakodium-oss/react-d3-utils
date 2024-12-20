@@ -34,19 +34,19 @@
   },
   "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.3.5",
-    "@storybook/addon-links": "^8.3.5",
-    "@storybook/addon-storysource": "^8.3.5",
-    "@storybook/react": "^8.3.5",
-    "@storybook/react-vite": "^8.3.5",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/addon-storysource": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
     "@types/react": "^18.3.11",
-    "eslint": "^9.12.0",
-    "eslint-config-zakodium": "^13.0.0",
-    "prettier": "^3.3.3",
+    "eslint": "^9.17.0",
+    "eslint-config-zakodium": "^14.0.0",
+    "prettier": "^3.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^6.0.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.8",
@@ -54,6 +54,6 @@
     "use-resize-observer": "^9.1.0"
   },
   "volta": {
-    "node": "22.9.0"
+    "node": "22.12.0"
   }
 }

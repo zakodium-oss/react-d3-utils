@@ -1,11 +1,5 @@
-import {
-  type ScaleLinear,
-  scaleLinear,
-  scaleLog,
-  type ScaleLogarithmic,
-  type ScaleTime,
-  scaleTime,
-} from 'd3-scale';
+import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
+import type { ScaleLinear, ScaleLogarithmic, ScaleTime } from 'd3-scale';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 import {

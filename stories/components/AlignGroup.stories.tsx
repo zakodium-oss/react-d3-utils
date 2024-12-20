@@ -1,11 +1,8 @@
 import type { Meta } from '@storybook/react';
 import { useEffect, useState } from 'react';
 
-import {
-  AlignGroup,
-  type AlignGroupProps,
-  useBBoxObserver,
-} from '../../src/index.js';
+import { AlignGroup, useBBoxObserver } from '../../src/index.js';
+import type { AlignGroupProps } from '../../src/index.js';
 
 const DEBUG_COLOR = 'yellow';
 

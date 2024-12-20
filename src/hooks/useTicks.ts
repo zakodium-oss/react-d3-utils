@@ -1,10 +1,6 @@
 import type { ScaleContinuousNumeric, ScaleTime } from 'd3-scale';
-import {
-  type Dispatch,
-  type MutableRefObject,
-  type SetStateAction,
-  useEffect,
-} from 'react';
+import { useEffect } from 'react';
+import type { Dispatch, MutableRefObject, SetStateAction } from 'react';
 
 import { textDimensions } from '../utils.js';
 
