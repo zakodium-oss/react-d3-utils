@@ -20,7 +20,7 @@ export function useBBoxObserver<ElementType extends SVGGraphicsElement>() {
     }
     if (element !== null) {
       const observer = new ResizeObserver(([entry]) => {
-        const bbox = (entry.target as ElementType).getBBox();
+        const bbox = (entry?.target as ElementType).getBBox();
         const previous = previousSize.current;
         if (
           previous.x !== bbox.x ||
