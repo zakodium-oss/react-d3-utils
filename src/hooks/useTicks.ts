@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric, ScaleTime } from 'd3-scale';
-import type { Dispatch, MutableRefObject, SetStateAction } from 'react';
+import type { Dispatch, RefObject, SetStateAction } from 'react';
 import { useEffect } from 'react';
 
 import { textDimensions } from '../utils.js';
@@ -40,7 +40,7 @@ export function useTicks<T extends number | Date>(
     ? ScaleContinuousNumeric<number, number>
     : ScaleTime<number, number>,
   direction: Directions,
-  ref: MutableRefObject<SVGGElement | null>,
+  ref: RefObject<SVGGElement | null>,
   options: Options<T>,
 ) {
   const range = scale.range() as [number, number];

@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 
 export function useResizeObserver() {
   const [size, setSize] = useState<DOMRect>();
-  const observerRef = useRef<ResizeObserver | null>(null);
+  const observerRef = useRef<ResizeObserver>(null);
 
   const refCallback = useCallback((node: HTMLElement | null) => {
     if (observerRef.current) {

@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import type { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 import { useState } from 'react';
 
 import type { Tick } from './useTicks.js';
@@ -34,7 +34,7 @@ interface Options {
 export function useLinearPrimaryTicks(
   scale: ScaleContinuousNumeric<number, number>,
   direction: Directions,
-  ref: MutableRefObject<SVGGElement | null>,
+  ref: RefObject<SVGGElement | null>,
   options: Options = {},
 ): UseLinearPrimaryTicksResult {
   const [ticks, setTicks] = useState<UseLinearPrimaryTicksResult>(() => ({

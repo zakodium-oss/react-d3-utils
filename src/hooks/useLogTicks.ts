@@ -1,5 +1,5 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import type { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { textDimensions } from '../utils.js';
@@ -54,7 +54,7 @@ function formatTicks(
 export function useLogTicks(
   scale: ScaleContinuousNumeric<number, number>,
   direction: Directions,
-  ref: MutableRefObject<SVGGElement | null>,
+  ref: RefObject<SVGGElement | null>,
   options: Options = {},
 ): PrimaryLogTicks[] {
   const [maxStrSize, setMaxStrSize] = useState(40);

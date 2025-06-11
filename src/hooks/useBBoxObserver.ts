@@ -11,7 +11,7 @@ export function useBBoxObserver<ElementType extends SVGGraphicsElement>() {
   const previousSize = useRef(initialSize);
 
   // Contains a function to cleanup the previous observer when the observed element changes.
-  const cleanupPrevious = useRef<() => void>();
+  const cleanupPrevious = useRef<() => void>(null);
 
   // Ref callback to do the observation.
   const ref: RefCallback<ElementType> = useCallback((element) => {
