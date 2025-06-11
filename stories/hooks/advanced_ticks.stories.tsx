@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
 import React, { forwardRef, useRef, useState } from 'react';
 
