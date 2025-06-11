@@ -1,5 +1,5 @@
 import type { ScaleTime } from 'd3-scale';
-import type { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 import { useState } from 'react';
 
 import type { Tick } from './useTicks.js';
@@ -34,7 +34,7 @@ interface Options {
 export function useTimeTicks(
   scale: ScaleTime<number, number>,
   direction: Directions,
-  ref: MutableRefObject<SVGGElement | null>,
+  ref: RefObject<SVGGElement | null>,
   options: Options,
 ): UseTimeTicksResult {
   const { tickFormat = scale.tickFormat() } = options;

@@ -1,8 +1,8 @@
-import type { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 
 export function textDimensions(
   word: string,
-  ref: MutableRefObject<SVGGElement | null>,
+  ref: RefObject<SVGGElement | null>,
 ) {
   const textContent = document.createTextNode(word);
   const textElement = document.createElementNS(
