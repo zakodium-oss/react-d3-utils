@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0](https://github.com/zakodium-oss/react-d3-utils/compare/v3.0.0...v3.1.0) (2025-06-11)
+
+
+### Features
+
+* add custom `useResizeObserver` hook ([aec1440](https://github.com/zakodium-oss/react-d3-utils/commit/aec1440f66062cc3321fb513452d26797bd57db3))
+* add support for React 19 ([6fb28a3](https://github.com/zakodium-oss/react-d3-utils/commit/6fb28a36be41cbcfc85473733dcc301bf9446587))
+
 ## [3.0.0](https://github.com/zakodium-oss/react-d3-utils/compare/v2.0.0...v3.0.0) (2024-11-19)
 
 
