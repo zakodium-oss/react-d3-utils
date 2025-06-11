@@ -43,8 +43,10 @@ export function useTicks<T extends number | Date>(
   ref: MutableRefObject<SVGGElement | null>,
   options: Options<T>,
 ) {
-  const range = scale.range();
-  if (!range) throw new Error('Range needs to be specified');
+  const range = scale.range() as [number, number];
+  if (!range || range.length !== 2) {
+    throw new Error('Range needs to be specified');
+  }
 
   const domain = scale.domain();
   if (!domain) throw new Error('Domain needs to be specified');

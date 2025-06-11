@@ -10,10 +10,12 @@ export default {
   title: 'Hooks/Advanced Ticks',
 } as Meta;
 
-const LARGE_RANGE = [0, 600];
-const SMALL_RANGE = [0, 40];
-const DOMAIN_LARGE = [0, 100];
-const DOMAIN_SMALL = [50, 50.0001];
+type Domain = [number, number];
+
+const LARGE_RANGE: Domain = [0, 600];
+const SMALL_RANGE: Domain = [0, 40];
+const DOMAIN_LARGE: Domain = [0, 100];
+const DOMAIN_SMALL: Domain = [50, 50.0001];
 
 export function AdvancedCustomTicks() {
   const ref = useRef<SVGGElement>(null);
@@ -65,7 +67,7 @@ function computeLinearTicks(
     secondaryTickSize?: number;
   } = {},
 ): AxisTick[] {
-  const viewport = xAccessor.domain();
+  const viewport = xAccessor.domain() as Domain;
   const ticks: AxisTick[] = [];
   const {
     noSecondaryTicks = false,
@@ -113,7 +115,7 @@ function computeLinearTicks(
     ticks.push({
       value,
       position: xAccessor(value),
-      label: primaryTicks[primaryTickIndex]?.label ?? null,
+      label: primaryTicks[primaryTickIndex]?.label ?? '',
       size: n % nSubTicks === 0 ? primaryTickSize : secondaryTickSize,
     });
   }

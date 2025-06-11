@@ -32,7 +32,10 @@ function formatTicks(
   minSpace: number,
 ): PrimaryLogTicks[] {
   const scaledTicks = ticks.filter((val) => isMainTick(val) === 1).map(scale);
-  const mainTickSpace = Math.abs(scaledTicks[0] - scaledTicks[1]);
+  const mainTickSpace = Math.abs(
+    // TODO: `scaledTicks` might not have a length >1
+    (scaledTicks[0] as number) - (scaledTicks[1] as number),
+  );
   const mainTickRatio = (maxWordSpace + minSpace) / mainTickSpace;
   const mainTicksStep = mainTickRatio >= 1 ? Math.ceil(mainTickRatio) : 1;
 

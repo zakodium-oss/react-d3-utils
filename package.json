@@ -38,6 +38,7 @@
     "@storybook/addon-links": "^9.0.8",
     "@storybook/react-vite": "^9.0.8",
     "@types/react": "^18.3.11",
+    "@zakodium/tsconfig": "^1.0.1",
     "eslint": "^9.28.0",
     "eslint-config-zakodium": "^15.0.1",
     "eslint-plugin-storybook": "^9.0.8",
