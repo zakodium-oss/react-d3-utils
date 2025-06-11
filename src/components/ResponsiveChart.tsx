@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import useResizeObserver from 'use-resize-observer';
+
+import { useResizeObserver } from '../hooks/use_resize_observer.js';
 
 export interface ResponsiveChartProps {
   width?: number | `${number}%`;
@@ -15,12 +16,11 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
   const { width, height, minWidth, minHeight, maxWidth, maxHeight, children } =
     props;
 
-  // @ts-expect-error Default import is correct.
-  const observed = useResizeObserver<HTMLDivElement>();
+  const [observedRef, observedSize] = useResizeObserver();
 
   return (
     <div
-      ref={observed.ref}
+      ref={observedRef}
       style={{
         position: 'relative',
         flex: 1,
@@ -35,8 +35,8 @@ export function ResponsiveChart(props: ResponsiveChartProps) {
       <div
         style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}
       >
-        {observed.width && observed.height
-          ? children({ width: observed.width, height: observed.height })
+        {observedSize
+          ? children({ width: observedSize.width, height: observedSize.height })
           : null}
       </div>
     </div>

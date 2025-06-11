@@ -50,8 +50,7 @@
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.8",
-    "d3-scale": "^4.0.2",
-    "use-resize-observer": "^9.1.0"
+    "d3-scale": "^4.0.2"
   },
   "volta": {
     "node": "22.9.0"

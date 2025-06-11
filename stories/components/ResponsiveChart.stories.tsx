@@ -115,7 +115,9 @@ export function SiblingVariable() {
     >
       <div style={{ flex: 2, height: 100, backgroundColor: 'yellow' }} />
       <ResponsiveChart>
-        {({ width, height }) => <TestChart width={width} height={height} />}
+        {({ width, height }) => (
+          <TestChart width={Math.round(width)} height={Math.round(height)} />
+        )}
       </ResponsiveChart>
       <VariableDiv>
         <div style={{ backgroundColor: 'red', height: '100%', color: 'white' }}>
