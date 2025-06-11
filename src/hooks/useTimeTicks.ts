@@ -1,7 +1,9 @@
 import type { ScaleTime } from 'd3-scale';
-import { type MutableRefObject, useState } from 'react';
+import type { MutableRefObject } from 'react';
+import { useState } from 'react';
 
-import { type Tick, useTicks } from './useTicks.js';
+import type { Tick } from './useTicks.js';
+import { useTicks } from './useTicks.js';
 
 type Directions = 'horizontal' | 'vertical';
 

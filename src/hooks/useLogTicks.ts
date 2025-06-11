@@ -1,11 +1,6 @@
 import type { ScaleContinuousNumeric } from 'd3-scale';
-import {
-  type MutableRefObject,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import type { MutableRefObject } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { textDimensions } from '../utils.js';
 

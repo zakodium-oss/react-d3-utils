@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/react-vite';
-import { type ScaleContinuousNumeric, scaleLinear } from 'd3-scale';
+import type { ScaleContinuousNumeric } from 'd3-scale';
+import { scaleLinear } from 'd3-scale';
 import React, { forwardRef, useRef, useState } from 'react';
 
 import type { Tick } from '../../src/index.js';
