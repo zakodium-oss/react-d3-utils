@@ -4,7 +4,7 @@ export function useResizeObserver() {
   const [size, setSize] = useState<DOMRect>();
   const observerRef = useRef<ResizeObserver>(null);
 
-  const refCallback = useCallback((node: HTMLElement | null) => {
+  const refCallback = useCallback((node: Element | null) => {
     if (observerRef.current) {
       observerRef.current.disconnect();
       observerRef.current = null;
