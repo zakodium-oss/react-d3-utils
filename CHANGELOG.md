@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/zakodium-oss/react-d3-utils/compare/v3.1.0...v3.1.1) (2025-06-12)
+
+
+### Bug Fixes
+
+* **useResizeObserver:** allow usage with SVG elements ([#45](https://github.com/zakodium-oss/react-d3-utils/issues/45)) ([bed31f9](https://github.com/zakodium-oss/react-d3-utils/commit/bed31f90789760feb27ebb7ef8bd305ae4ef6879))
+
 ## [3.1.0](https://github.com/zakodium-oss/react-d3-utils/compare/v3.0.0...v3.1.0) (2025-06-11)
 
 
