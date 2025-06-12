@@ -1,6 +1,6 @@
 {
   "name": "react-d3-utils",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Low-level utilities to build charts with React and D3",
   "type": "module",
   "exports": "./lib/index.js",
