@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/zakodium-oss/react-d3-utils/compare/v3.1.1...v3.1.2) (2025-08-14)
+
+
+### Bug Fixes
+
+* exports ([#47](https://github.com/zakodium-oss/react-d3-utils/issues/47)) ([82de2d9](https://github.com/zakodium-oss/react-d3-utils/commit/82de2d93e0b9b0cd4524dac71391c8ea6907f4be))
+
 ## [3.1.1](https://github.com/zakodium-oss/react-d3-utils/compare/v3.1.0...v3.1.1) (2025-06-12)
 
 

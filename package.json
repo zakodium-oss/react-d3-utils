@@ -1,6 +1,6 @@
 {
   "name": "react-d3-utils",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "license": "MIT",
   "description": "Low-level utilities to build charts with React and D3",
   "author": "Michael Zasso",
