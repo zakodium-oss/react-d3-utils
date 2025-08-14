@@ -1,58 +1,64 @@
 {
   "name": "react-d3-utils",
   "version": "3.1.1",
+  "license": "MIT",
   "description": "Low-level utilities to build charts with React and D3",
+  "author": "Michael Zasso",
   "type": "module",
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "files": [
     "lib",
     "src"
   ],
   "scripts": {
-    "build": "npm run clean && npm run build-ts",
-    "build-ts": "tsc -p tsconfig.build.json",
+    "build": "npm run clean && npm run tsc",
     "build-storybook": "storybook build",
     "check-types": "tsc --noEmit",
     "clean": "rimraf lib",
     "dev": "storybook dev -p 6006",
-    "eslint": "eslint src stories",
-    "eslint-fix": "npm run eslint -- --fix",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint . --fix",
     "prepack": "npm run build",
     "prettier": "prettier --check .",
     "prettier-write": "prettier --write .",
     "start": "npm run dev",
-    "test": "npm run eslint && npm run prettier && npm run check-types"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zakodium-oss/react-d3-utils.git"
-  },
-  "author": "Michael Zasso",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zakodium-oss/react-d3-utils/issues"
-  },
-  "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
-  "devDependencies": {
-    "@storybook/addon-docs": "^9.0.8",
-    "@storybook/addon-links": "^9.0.8",
-    "@storybook/react-vite": "^9.0.8",
-    "@types/react": "^19.1.7",
-    "@zakodium/tsconfig": "^1.0.1",
-    "eslint": "^9.28.0",
-    "eslint-config-zakodium": "^15.0.1",
-    "eslint-plugin-storybook": "^9.0.8",
-    "prettier": "^3.5.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "rimraf": "^6.0.1",
-    "storybook": "^9.0.8",
-    "typescript": "^5.8.3"
+    "test": "npm run check-types && npm run eslint && npm run prettier",
+    "tsc": "npm run clean && npm run tsc-build",
+    "tsc-build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.9",
     "d3-scale": "^4.0.2"
   },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^9.1.2",
+    "@storybook/addon-links": "^9.1.2",
+    "@storybook/react-vite": "^9.1.2",
+    "@types/react": "^19.1.10",
+    "@zakodium/tsconfig": "^1.0.2",
+    "eslint": "^9.33.0",
+    "eslint-config-zakodium": "^16.0.0",
+    "eslint-plugin-storybook": "^9.1.2",
+    "prettier": "^3.6.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "rimraf": "^6.0.1",
+    "storybook": "^9.1.2",
+    "typescript": "^5.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakodium-oss/react-d3-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zakodium-oss/react-d3-utils/issues"
+  },
+  "homepage": "https://github.com/zakodium-oss/react-d3-utils#readme",
   "volta": {
     "node": "22.9.0"
   }
