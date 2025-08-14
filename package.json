@@ -25,7 +25,8 @@
     "prettier-write": "prettier --write .",
     "start": "npm run dev",
     "test": "npm run check-types && npm run eslint && npm run prettier",
-    "tsc": "tsc -p tsconfig.build.json"
+    "tsc": "npm run clean && npm run tsc-build",
+    "tsc-build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.9",
