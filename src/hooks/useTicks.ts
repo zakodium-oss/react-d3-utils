@@ -44,7 +44,7 @@ export function useTicks<T extends number | Date>(
   options: Options<T>,
 ) {
   const range = scale.range() as [number, number];
-  if (!range || range.length !== 2) {
+  if (range?.length !== 2) {
     throw new Error('Range needs to be specified');
   }
 

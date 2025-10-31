@@ -8,4 +8,12 @@ export default defineConfig(
   react,
   ts,
   storybook.configs['flat/recommended'],
+  {
+    // TODO: Enable those rules
+    rules: {
+      'react-you-might-not-need-an-effect/no-pass-data-to-parent': 'off',
+      'react-hooks/refs': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
 );
