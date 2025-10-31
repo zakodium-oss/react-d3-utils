@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-type ResizeCallback = (rect: DOMRect) => void;
+export type UseResizeObserverCallback = (rect: DOMRect) => void;
 
-export function useResizeObserver(callback?: ResizeCallback) {
+export function useResizeObserver(callback?: UseResizeObserverCallback) {
   const [size, setSize] = useState<DOMRect>();
   const observerRef = useRef<ResizeObserver>(null);
   const callbackRef = useRef(callback);
