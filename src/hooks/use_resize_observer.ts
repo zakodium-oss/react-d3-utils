@@ -1,8 +1,15 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-export function useResizeObserver() {
+export type UseResizeObserverCallback = (rect: DOMRect) => void;
+
+export function useResizeObserver(callback?: UseResizeObserverCallback) {
   const [size, setSize] = useState<DOMRect>();
   const observerRef = useRef<ResizeObserver>(null);
+  const callbackRef = useRef(callback);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
 
   const refCallback = useCallback((node: Element | null) => {
     if (observerRef.current) {
@@ -13,7 +20,7 @@ export function useResizeObserver() {
     if (node) {
       const updateSize = () => {
         const rect = node.getBoundingClientRect();
-
+        callbackRef.current?.(rect);
         setSize(rect);
       };
 
